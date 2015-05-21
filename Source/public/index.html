@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <title>Creative Network</title>
+    <link rel="stylesheet" href="content/tiles.web.min.css">
+</head>
+
+<body ng-app="CreativeNetwork" class="light">
+    <div class="navbar">
+        <header class="title" style="height: 120px;">
+            <img src="content/logo.png" style="float: right; height: 120px;  margin: 0 -32px 0 0;" alt=""> Creative Network<sub>beta</sub></header>
+        <nav>
+            <ul class="main">
+                <li><a nav-link href="/" class="button">Start</a></li>
+                <li><a nav-link href="/blog" class="button">Knowledge Blog</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div style="margin: 10px 20px;" ng-view=""></div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="scripts/tiles.web.min.js"></script>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_de-de.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-truncate/src/truncate.js"></script>
+    <script src="app/knowledgeBlog/knowledgeBlog.js"></script>
+    <script src="app/shared/navigation.js"></script>
+    <script src="app/app.js"></script>
+</body>
+
+</html>

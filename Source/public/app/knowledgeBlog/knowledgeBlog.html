@@ -1,0 +1,9 @@
+<button ng-repeat-start="entry in entries" class="bgDarkGreen" ng-class="entry.title.length > 70 ? 'tile-l' : 'tile'">
+    <span>{{entry.title | characters: entry.title.length > 70 ? 160 : 70}}</span>
+    <div class="badge">{{entry.author | characters: 25}}</div>
+</button>
+<span ng-repeat-end></span>
+
+<button class="tile-s bgLightGreen">
+    <span>Neu...</span>
+</button>
