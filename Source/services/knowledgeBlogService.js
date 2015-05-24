@@ -1,5 +1,9 @@
 "use strict";
 
+var nano = require('nano')('http://admin:admin@localhost:5984');
+var db = nano.use('blog');
+
+
 exports.createBlogEntry = function(title, author, content)
 {
 
