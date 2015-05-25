@@ -1,9 +1,51 @@
-<button ng-repeat-start="entry in entries" class="bgDarkGreen" ng-class="entry.title.length > 70 ? 'tile-l' : 'tile'">
-    <span>{{entry.title | characters: entry.title.length > 70 ? 160 : 70}}</span>
-    <div class="badge">{{entry.author | characters: 25}}</div>
-</button>
-<span ng-repeat-end></span>
+<style>
 
-<button class="tile-s bgLightGreen">
-    <span>Neu...</span>
-</button>
+.article-list
+{
+  width:100%;
+  float:left;
+}
+
+.article-list-small
+{
+  width:300px;
+}
+
+.articleDetail{
+  width: 100%;
+  position:absolute;
+  left:100vw;
+  top:0;
+  overflow:scroll;
+  height: 100%;
+}
+
+.articleDetailView
+{
+  left:300px;
+/*  padding-right:300px;*/
+}
+
+.animation
+{
+    transition:width 0.5s ease, left 0.5s ease;
+}
+
+</style>
+
+<div style="position:relative;overflow-x: hidden">
+<div class="article-list animation" ng-class="{'article-list-small':IsEdit}">
+  <div ng-repeat="entry in entries" class="bgDarkGreen" ng-class="entry.title.length > 70 ? 'tile-l' : 'tile'"
+      ng-click="setCurrentEntry(entry)" >
+      <span>{{entry.title | characters: entry.title.length > 70 ? 160 : 70}}</span>
+      <div class="badge">{{entry.author | characters: 25}}</div>
+  </div>
+  <span ng-repeat-end></span>
+
+  <button class="tile-s bgLightGreen">
+      <span>Neu...</span>
+  </button>
+</div>
+
+<knowledge-blog-article article="selectedEntry" class="articleDetail animation" ng-class="{'articleDetailView':IsEdit}"></knowledge-blog-article>
+</div>

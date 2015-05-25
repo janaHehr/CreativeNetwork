@@ -14,7 +14,7 @@ exports.getAllBlogEntries = function()
     {
         title: "Ein super langer Titel, der nichts sagend daher kommt und  blubb blubb möglicherweise alle Grenzen sprengt oder auch einfach abgeschnitten oder 'ellipsiert' wird (dann fehlt hat was vom langen Text)",
         author: "Thomas Klepzig",
-        content: "Blubberbrause1"
+        content: "# test"
     });
     mock.push(
     {

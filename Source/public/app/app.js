@@ -2,13 +2,16 @@ angular.module('CreativeNetwork', [
         'ngRoute',
         'truncate',
         'navigation',
-        'knowledgeBlog'
+        'knowledgeBlog',
+        'ui.codemirror',
+        'Showdown',
+        'comparex.syncScroll'
     ])
     .config(init);
 
-init.$inject = ["$routeProvider", "$locationProvider"];
+init.$inject = ["$routeProvider", "$locationProvider", "$ShowdownProvider"];
 
-function init($routeProvider, $locationProvider)
+function init($routeProvider, $locationProvider, $ShowdownProvider)
 {
     $locationProvider.html5Mode(true);
 
@@ -16,4 +19,6 @@ function init($routeProvider, $locationProvider)
     {
         redirectTo: '/'
     });
+
+    $ShowdownProvider.loadExtension('prismsyntaxhighlighter');
 }

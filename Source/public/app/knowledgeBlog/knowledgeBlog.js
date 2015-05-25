@@ -1,4 +1,4 @@
-angular.module('knowledgeBlog', [])
+angular.module('knowledgeBlog', ['knowledgeBlog.article'])
     .config(defineRoutes)
     .factory("knowledgeBlogService", knowledgeBlogService)
     .controller("KnowledgeBlogController", KnowledgeBlogController);
@@ -43,7 +43,13 @@ function knowledgeBlogService($q, $http)
 function KnowledgeBlogController($scope, knowledgeBlogService)
 {
     $scope.entries = [];
-
+    $scope.selectedEntry = {};
+    $scope.IsEdit =false;
+    $scope.setCurrentEntry = function(entry) {
+      $scope.selectedEntry = entry;
+      $scope.IsEdit =true;
+    }
+    
     knowledgeBlogService.getEntries().then(function(entries)
     {
         $scope.entries = entries;

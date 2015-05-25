@@ -1,0 +1,36 @@
+<div class="article" style="position:relative; heigth: 100%;">
+  <div style="position:absolute; right: 300px; left: 0; height: 100%">
+
+
+  <div style="background-color:lightgray;padding:5px;right: 0px;">
+    <button ng-hide="model.isEditMode" type="button" ng-click="model.isEditMode=!model.isEditMode">edit</button>
+    <button ng-show="model.isEditMode" type="button" ng-click="model.isEditMode=!model.isEditMode">save</button>
+  </div>
+  <div>
+    <label ng-if="!model.isEditMode" style="font-size:1.5em;">{{ article.title }}</label>
+    <textarea ng-if="model.isEditMode" style="font-size:1.5em; width:100%;" ng-model="article.title"/>
+  </div>
+  <p>
+    <small>by: {{ article.author }}</small>
+  </p>
+  <div ng-if="model.isEditMode" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' "
+  markdown-container=" 'markdown-container' " style="float: left; width: 50%;"></div>
+
+  <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
+    <div sd-model-to-html="article.content" id="markdown-container"/>
+  </section>
+
+  </div>
+</div>
+
+
+<style>
+.entry-preview-content
+{
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  overflow: scroll;
+  height: 500px;"
+}
+</style>
