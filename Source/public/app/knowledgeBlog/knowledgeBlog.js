@@ -49,7 +49,7 @@ function KnowledgeBlogController($scope, knowledgeBlogService)
       $scope.selectedEntry = entry;
       $scope.IsEdit =true;
     }
-    
+
     knowledgeBlogService.getEntries().then(function(entries)
     {
         $scope.entries = entries;

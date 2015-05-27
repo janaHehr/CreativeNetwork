@@ -4,7 +4,6 @@ angular.module('CreativeNetwork', [
         'navigation',
         'knowledgeBlog',
         'ui.codemirror',
-        'Showdown',
         'comparex.syncScroll'
     ])
     .config(init);
