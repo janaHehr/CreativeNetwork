@@ -9,6 +9,7 @@ app.use("/", bodyParser.urlencoded(
 {
     extended: false
 }));
+app.use(bodyParser.json());
 
 require("./routes")(app);
 

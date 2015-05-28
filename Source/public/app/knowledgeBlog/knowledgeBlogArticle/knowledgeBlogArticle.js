@@ -1,13 +1,16 @@
-angular.module('knowledgeBlog.article', ['Showdown'])
+(function(){
+  'use strict',
+
+angular.module('knowledgeBlog.article', ['Showdown','CreativeNetwork.knowledgeBlogService'])
   .directive('knowledgeBlogArticle', knowledgeBlogArticle)
   .controller('KnowledgeBlogArticleController', KnowledgeBlogArticleController);
 
-KnowledgeBlogArticleController.$inject = ["$scope"];
+KnowledgeBlogArticleController.$inject = ['$scope','knowledgeBlogService'];
 
 function knowledgeBlogArticle() {
   return {
     restrict: 'AE',
-    templateUrl: 'app/knowledgeBlog/knowledgeBlogArticle/knowledgeBlogArticle.tpl.html',
+    templateUrl: 'app/knowledgeBlog/knowledgeBlogArticle/knowledgeBlogArticle.html',
     scope: {
       article: '='
     },
@@ -15,7 +18,18 @@ function knowledgeBlogArticle() {
   };
 }
 
-function KnowledgeBlogArticleController($scope){
+function KnowledgeBlogArticleController($scope, knowledgeBlogService){
+
+  $scope.Save = function(){
+    knowledgeBlogService.updateBlogEntry($scope.article);
+    $scope.model.isEditMode=!$scope.model.isEditMode
+  }
+
+  $scope.Delete = function(){
+    knowledgeBlogService.deleteBlogEntry($scope.article._id);
+    $scope.model.isEditMode=!$scope.model.isEditMode
+  }
+
   $scope.model={
     isEditMode: false,
     editorOptions : {
@@ -28,3 +42,4 @@ function KnowledgeBlogArticleController($scope){
     }
   }
 }
+})();

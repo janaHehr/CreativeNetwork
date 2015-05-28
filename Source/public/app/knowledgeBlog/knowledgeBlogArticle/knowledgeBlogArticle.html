@@ -4,7 +4,8 @@
 
   <div style="background-color:lightgray;padding:5px;right: 0px;">
     <button ng-hide="model.isEditMode" type="button" ng-click="model.isEditMode=!model.isEditMode">edit</button>
-    <button ng-show="model.isEditMode" type="button" ng-click="model.isEditMode=!model.isEditMode">save</button>
+    <button ng-show="model.isEditMode" type="button" ng-click="Save()">save</button>
+    <button ng-show="model.isEditMode" type="button" ng-click="Delete()">delete</button>
   </div>
   <div>
     <label ng-if="!model.isEditMode" style="font-size:1.5em;">{{ article.title }}</label>
