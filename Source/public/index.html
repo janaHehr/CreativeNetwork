@@ -5,6 +5,9 @@
     <base href="/">
     <title>Creative Network</title>
     <link rel="stylesheet" href="content/tiles.web.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/theme/monokai.css">
+    <link rel="stylesheet" type="text/css" href="lib/prism/prism.css">
 </head>
 
 <body ng-app="CreativeNetwork" class="light">
@@ -22,13 +25,30 @@
     <div style="margin: 10px 20px;" ng-view=""></div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="scripts/tiles.web.min.js"></script>
     <script src="bower_components/angularjs/angular.min.js"></script>
     <script src="bower_components/angular-i18n/angular-locale_de-de.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-truncate/src/truncate.js"></script>
+
+    <script src="bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="bower_components/codemirror/mode/markdown/markdown.js"></script>
+    <script src="bower_components/codemirror/addon/edit/closebrackets.js"></script>
+    <script src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/showdown/compressed/showdown.min.js"></script>
+    <script src="bower_components/angular-markdown-directive/markdown.js"></script>
+
+
+    <script src="lib/tiles.web.min.js"></script>
+    <script src="lib/prism/prism.js"></script>
+
+    <script src="app/components/prismextension/prismextension.js"></script>
+    <script src="app/components/syncScroll/syncScroll.js"></script>
+    <script src="app/components/navigation/navigation.js"></script>
+
     <script src="app/knowledgeBlog/knowledgeBlog.js"></script>
-    <script src="app/shared/navigation.js"></script>
+    <script src="app/knowledgeBlog/knowledgeBlogArticle/knowledgeBlogArticle.js"></script>
     <script src="app/app.js"></script>
 </body>
 
