@@ -1,61 +1,42 @@
-angular.module('knowledgeBlog', ['knowledgeBlog.article'])
-    .config(defineRoutes)
-    .factory("knowledgeBlogService", knowledgeBlogService)
-    .controller("KnowledgeBlogController", KnowledgeBlogController);
+(function(){
+  'use strict',
 
-defineRoutes.$inject = ["$routeProvider"];
-knowledgeBlogService.$inject = ["$q", "$http"];
-KnowledgeBlogController.$inject = ["$scope", "knowledgeBlogService"];
+  angular.module('knowledgeBlog', ['knowledgeBlog.article','CreativeNetwork.knowledgeBlogService'])
+      .config(defineRoutes)
+      .controller("KnowledgeBlogController", KnowledgeBlogController);
 
-function defineRoutes($routeProvider)
-{
-    $routeProvider.when('/blog',
-    {
-        templateUrl: 'app/knowledgeBlog/knowledgeBlog.html',
-        controller: 'KnowledgeBlogController'
-    });
-}
+  defineRoutes.$inject = ["$routeProvider"];
+  KnowledgeBlogController.$inject = ["$scope", "knowledgeBlogService"];
 
-function knowledgeBlogService($q, $http)
-{
-    var result = {};
+  function defineRoutes($routeProvider)
+  {
+      $routeProvider.when('/blog',
+      {
+          templateUrl: 'app/knowledgeBlog/knowledgeBlog.html',
+          controller: 'KnowledgeBlogController'
+      });
+  }
 
-    result.getEntries = function()
-    {
-        var deferred = $q.defer();
+  function KnowledgeBlogController($scope, knowledgeBlogService)
+  {
+      $scope.entries = [];
+      $scope.selectedEntry = {};
+      $scope.IsEdit = false;
 
-        $http.get('/api/blogEntries').
-        success(function(data, status, headers, config)
-        {
-            deferred.resolve(data);
-        }).
-        error(function(data, status, headers, config)
-        {
-            deferred.reject();
+      $scope.setCurrentEntry = function(entry) {
+        $scope.selectedEntry = entry;
+        $scope.IsEdit = true;
+      }
+
+      $scope.createBlogEntry = function() {
+        knowledgeBlogService.createBlogEntry().then(function(result){
+          $scope.setCurrentEntry(result.data);
         });
+      }
 
-        return deferred.promise;
-    };
-
-    return result;
-}
-
-function KnowledgeBlogController($scope, knowledgeBlogService)
-{
-    $scope.entries = [];
-    $scope.selectedEntry = {};
-    $scope.IsEdit =false;
-    $scope.setCurrentEntry = function(entry) {
-      $scope.selectedEntry = entry;
-      $scope.IsEdit =true;
-    }
-
-    knowledgeBlogService.getEntries().then(function(entries)
-    {
-        $scope.entries = entries;
-
-    }, function()
-    {
-        // TODO: Error handling
-    });
-}
+      knowledgeBlogService.getEntries().then(function(entries)
+      {
+          $scope.entries = entries;
+      });
+  }
+})();
