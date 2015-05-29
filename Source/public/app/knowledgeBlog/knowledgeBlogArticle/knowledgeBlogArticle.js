@@ -1,7 +1,7 @@
 (function(){
   'use strict',
 
-angular.module('knowledgeBlog.article', ['Showdown','CreativeNetwork.knowledgeBlogService'])
+angular.module('knowledgeBlog.article', ['Showdown'])
   .directive('knowledgeBlogArticle', knowledgeBlogArticle)
   .controller('KnowledgeBlogArticleController', KnowledgeBlogArticleController);
 
