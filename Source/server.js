@@ -22,5 +22,3 @@ http.listen(port, function()
 {
     console.log("listening on *:" + port);
 });
-
-//Test
