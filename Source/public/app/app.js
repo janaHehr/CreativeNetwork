@@ -1,4 +1,4 @@
-angular.module('CreativeNetwork', [
+angular.module('creativeNetwork', [
         'ngRoute',
         'truncate',
         'navigation',
