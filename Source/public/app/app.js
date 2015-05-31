@@ -9,7 +9,7 @@ angular.module('CreativeNetwork', [
     ])
     .config(init);
 
-init.$inject = ["$routeProvider", "$locationProvider", "$ShowdownProvider", "$mdThemingProvider"];
+init.$inject = ["$routeProvider", "$locationProvider", "$showdownProvider", "$mdThemingProvider"];
 
 function init($routeProvider, $locationProvider, $ShowdownProvider, $mdThemingProvider)
 {
