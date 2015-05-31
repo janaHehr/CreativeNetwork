@@ -9,7 +9,7 @@
         </md-list-item>
     </md-list>
 
-    <div class="article" flex>
+    <div class="article" flex layout="column">
         <div style="background-color:lightgray;padding:5px;right: 0px;">
             <button ng-hide="model.isEditMode" type="button" ng-click="model.isEditMode=!model.isEditMode">edit</button>
             <button ng-show="model.isEditMode" type="button" ng-click="Save()">save</button>
@@ -22,23 +22,13 @@
         <p>
             <small>by: {{ article.author }}</small>
         </p>
-        <div ng-if="model.isEditMode" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' " markdown-container=" 'markdown-container' " style="float: left; width: 50%;"></div>
+        <div layout="row">
+            <div ng-if="model.isEditMode" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' " markdown-container=" 'markdown-container' "></div>
 
-        <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
-            <div sd-model-to-html="article.content" id="markdown-container" />
-        </section>
+            <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
+                <div sd-model-to-html="article.content" id="markdown-container" />
+            </section>
+        </div>
     </div>
 
 </md-content>
-
-<style>
-    .entry-preview-content {
-        position: absolute;
-        left: 50%;
-        width: 50%;
-        overflow: scroll;
-        height: 500px;
-        "
-
-    }
-</style>
