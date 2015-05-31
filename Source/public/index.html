@@ -4,25 +4,28 @@
 <head>
     <base href="/">
     <title>Creative Network</title>
-    <link rel="stylesheet" href="content/tiles.web.min.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
     <link rel="stylesheet" type="text/css" href="bower_components/codemirror/theme/monokai.css">
     <link rel="stylesheet" type="text/css" href="lib/prism/prism.css">
 </head>
 
-<body ng-app="CreativeNetwork" class="light">
-    <div class="navbar">
-        <header class="title" style="height: 120px;">
-            <img src="content/logo.png" style="float: right; height: 120px;  margin: 0 -32px 0 0;" alt=""> Creative Network<sub>beta</sub></header>
-        <nav>
-            <ul class="main">
-                <li><a nav-link href="/" class="button">Start</a></li>
-                <li><a nav-link href="/blog" class="button">Knowledge Blog</a></li>
-            </ul>
-        </nav>
-    </div>
+<body ng-app="CreativeNetwork" layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Creative Network
+                <span style="font-size: 0.6em;">beta</span>
+            </h2>
+            <!--TODO: Wo Logo platzieren? -->
+            <!-- <img src="content/logo.png" style="float: right; height: 120px;  margin: 0 -32px 0 0;" alt=""> Creative Network<sub>beta</sub></header> -->
+            <md-button nav-link class="md-raised" ng-href="/">Start</md-button>
+            <md-button nav-link class="md-raised" ng-href="/blog">Knowledge Blog</md-button>
+        </div>
+    </md-toolbar>
 
-    <div style="margin: 10px 20px;" ng-view=""></div>
+    <md-content layout="column" layout-padding flex>
+        <div style="margin: 10px 20px;" ng-view=""></div>
+    </md-content>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angularjs/angular.min.js"></script>
@@ -36,11 +39,15 @@
     <script src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
 
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="bower_components/showdown/compressed/showdown.min.js"></script>
+    <!--
+    <script src="bower_components/showdown/compressed/showdown.min.js"></script> -->
+
     <script src="bower_components/angular-markdown-directive/markdown.js"></script>
 
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
 
-    <script src="lib/tiles.web.min.js"></script>
     <script src="lib/prism/prism.js"></script>
 
     <script src="app/components/prismextension/prismextension.js"></script>
