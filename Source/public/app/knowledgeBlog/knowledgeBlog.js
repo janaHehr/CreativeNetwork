@@ -49,6 +49,14 @@
             return $http.delete('/api/blog/' + id);
         }
 
+        result.getBlogEntry = function(id, callback)
+        {
+            $http.get('/api/blog/' + id).success(function(entry)
+            {
+                callback(entry);
+            });
+        };
+
         return result;
     }
 
@@ -56,22 +64,18 @@
     {
         $scope.entries = [];
         $scope.selectedEntry = {};
-        $scope.IsEdit = false;
-        // $scope.go = function(path){
-        //     $location.path(path);
-        // };
 
-        $scope.setCurrentEntry = function(entry)
+        $scope.openEntry = function(entry)
         {
-            $scope.selectedEntry = entry;
-            $scope.IsEdit = true;
-        }
+            var path = "/blog/" + entry._id;
+            $location.path(path);
+        };
 
         $scope.createBlogEntry = function()
         {
             knowledgeBlogService.createBlogEntry().then(function(result)
             {
-                $scope.setCurrentEntry(result.data);
+                $scope.openEntry(result.data);
             });
         }
 
