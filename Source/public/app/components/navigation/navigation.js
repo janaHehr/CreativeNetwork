@@ -5,12 +5,12 @@ navLink.$inject = ["$location"];
 
 function navLink($location)
 {
-    var activeCssClass = "bgPurple";
+    var activeCssClass = "md-accent";
     return {
         restrict: 'A',
         link: function(scope, element, attrs, controller)
         {
-            var path = attrs.href;
+            var path = element.attr("ng-href");
             scope.location = $location;
             scope.$watch('location.path()', function(newPath)
             {

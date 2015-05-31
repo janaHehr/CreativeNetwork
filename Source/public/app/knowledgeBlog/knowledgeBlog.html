@@ -1,50 +1,49 @@
 <style>
+    .article-list {
+        width: 100%;
+        float: left;
+    }
 
-.article-list
-{
-  width:100%;
-  float:left;
-}
+    .article-list-small {
+        width: 300px;
+    }
 
-.article-list-small
-{
-  width:300px;
-}
+    .articleDetail {
+        width: 100%;
+        position: absolute;
+        left: 100vw;
+        top: 0;
+        overflow: scroll;
+        height: 100%;
+    }
 
-.articleDetail{
-  width: 100%;
-  position:absolute;
-  left:100vw;
-  top:0;
-  overflow:scroll;
-  height: 100%;
-}
+    .articleDetailView {
+        left: 300px;
+        /*  padding-right:300px;*/
+    }
 
-.articleDetailView
-{
-  left:300px;
-/*  padding-right:300px;*/
-}
-
-.animation
-{
-    transition:width 0.5s ease, left 0.5s ease;
-}
-
+    .animation {
+        transition: width 0.5s ease, left 0.5s ease;
+    }
 </style>
 
-<div style="position:relative;overflow-x: hidden">
-<div class="article-list animation" ng-class="{'article-list-small':IsEdit}">
-  <div ng-repeat="entry in entries" class="bgDarkGreen" ng-class="entry.title.length > 70 ? 'tile-l' : 'tile'"
-      ng-click="setCurrentEntry(entry)" >
-      <span>{{entry.title | characters: entry.title.length > 70 ? 160 : 70}}</span>
-      <div class="badge">{{entry.author | characters: 25}}</div>
-  </div>
-  <span ng-repeat-end></span>
+ <div style="position:relative;overflow-x: hidden">
+ <div class="article-list animation" ng-class="{'article-list-small':IsEdit}">
+<md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter="8px" md-gutter-gt-sm="4px">
+    <md-grid-tile ng-click="setCurrentEntry(entry)" ng-repeat="entry in entries" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="background: #fff456;">
+        <span>{{entry.title}}</span>
+        <md-grid-tile-footer>
+            <h3>{{entry.author}}</h3>
+        </md-grid-tile-footer>
+    </md-grid-tile>
 
-  <button class="tile-s bgLightGreen" ng-click="createBlogEntry()">
-      <span>Neu...</span>
-  </button>
-</div>
+    <md-grid-tile ng-click="createBlogEntry()" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="background: #fffabc;">
+        <span>Neu...</span>
+    </md-grid-tile>
+</md-grid-list>
+
 <knowledge-blog-article article="selectedEntry" class="articleDetail animation" ng-class="{'articleDetailView':IsEdit}"></knowledge-blog-article>
+</div>
 </div>

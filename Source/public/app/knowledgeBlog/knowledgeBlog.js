@@ -9,7 +9,7 @@
 
     defineRoutes.$inject = ["$routeProvider"];
     knowledgeBlogService.$inject = ["$q", "$http"];
-    KnowledgeBlogController.$inject = ["$scope", "knowledgeBlogService"];
+    KnowledgeBlogController.$inject = ["$scope", "knowledgeBlogService", "$location"];
 
     function defineRoutes($routeProvider)
     {
@@ -52,11 +52,14 @@
         return result;
     }
 
-    function KnowledgeBlogController($scope, knowledgeBlogService)
+    function KnowledgeBlogController($scope, knowledgeBlogService, $location)
     {
         $scope.entries = [];
         $scope.selectedEntry = {};
         $scope.IsEdit = false;
+        // $scope.go = function(path){
+        //     $location.path(path);
+        // };
 
         $scope.setCurrentEntry = function(entry)
         {
