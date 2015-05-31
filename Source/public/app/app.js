@@ -23,9 +23,9 @@ function init($routeProvider, $locationProvider, $ShowdownProvider, $mdThemingPr
     $ShowdownProvider.loadExtension('prismsyntaxhighlighter');
 
     $mdThemingProvider.theme("default")
-        // .primaryPalette("deep-orange")
-        // .accentPalette("teal")
-        // .backgroundPalette("grey")
-        // .dark()
+        .primaryPalette("brown")
+        .accentPalette("orange")
+        .backgroundPalette("brown")
+        //  .dark()
         ;
 }
