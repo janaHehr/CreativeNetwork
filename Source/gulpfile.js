@@ -33,7 +33,7 @@ var allJsFiles = publicSrcDir + 'app/**/*.js';
 var vendorDistFile = 'vendor.js';
 var templateDistFile = applicationName + '-templates.js';
 var combinedJsDistFile = applicationName + '.min.js';
-var cssDistFile = 'main.css';
+var cssDistFile = 'main.min.css';
 var jsDistFiles = [jsDistPath + vendorDistFile, jsDistPath + jsDistFile, jsDistPath + templateDistFile]
 
 var t = new Date();
@@ -57,8 +57,8 @@ gulp.task('package:js', function () {
 // lint
 gulp.task('lint', function () {
     return gulp.src(allJsFiles)
-        .pipe(plugins.jshint());
-      //  .pipe(plugins.jshint.reporter('default'));
+        .pipe(plugins.jshint())
+        .pipe(plugins.jshint.reporter('default'));
 });
 
 // uglify js files
@@ -75,7 +75,6 @@ gulp.task('package:vendor', function () {
         .pipe(plugins.uglify())
         .pipe(gulp.dest(jsDistPath));
 });
-
 
 // package templates to js file
 gulp.task('package:templates', function() {
