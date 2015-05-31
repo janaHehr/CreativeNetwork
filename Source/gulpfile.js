@@ -58,7 +58,7 @@ gulp.task('package:js', function () {
 gulp.task('lint', function () {
     return gulp.src(allJsFiles)
         .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter('default'));
+        .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
 // uglify js files
