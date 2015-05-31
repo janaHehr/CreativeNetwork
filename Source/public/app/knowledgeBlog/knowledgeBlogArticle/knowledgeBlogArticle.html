@@ -17,17 +17,17 @@
         </div>
         <div>
             <label ng-if="!model.isEditMode" style="font-size:1.5em;">{{ article.title }}</label>
-            <textarea ng-if="model.isEditMode" style="font-size:1.5em; width:100%;" ng-model="article.title" />
+            <textarea ng-if="model.isEditMode" style="font-size:1.5em; width:100%;" ng-model="article.title"></textarea>
         </div>
         <p>
             <small>by: {{ article.author }}</small>
         </p>
         <div layout="row">
             <div ng-if="model.isEditMode" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' " markdown-container=" 'markdown-container' "></div>
-
             <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
                 <div sd-model-to-html="article.content" id="markdown-container" />
             </section>
+
         </div>
     </div>
 
