@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var knowledgeBlogService = require("./services/knowledgeBlogService");
+var knowledgeBlogService = require('./services/knowledgeBlogService');
 
 exports.createBlogEntry = function(request, response)
 {

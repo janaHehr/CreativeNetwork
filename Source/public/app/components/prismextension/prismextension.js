@@ -1,4 +1,5 @@
 (function () {
+    'use strict';
     var Prism;
 
     // not exactly sure how to do this... but this worked
@@ -35,21 +36,21 @@
 
                         // dencode HTML entities encoded by showdown
                         // the opposite of replacements taken from showdown's _EncodeCode
-                        code = code.replace(/&lt;/g,"<");
-                        code = code.replace(/&gt;/g,">");
-                        code = code.replace(/&amp;/g,"&");
+                        code = code.replace(/&lt;/g,'<');
+                        code = code.replace(/&gt;/g,'>');
+                        code = code.replace(/&amp;/g,'&');
 
-			// make sure to decode amperstands last otherwise you will double decode < and >
-			// original      : &lt; makes the '<' symbol
-			// encoded       : &amp;lt; makes the '&lt;' symbol
-			//
-			// Wrong:
-			// replace &amp; : &lt; makes the '&lth;' symbol
-			// replace &lt;  : < makes the < symbol
-			//
-			// Correct:
-			// reaplce &lt;  : &amp;lt; makes the '<' symbol
-			// replace &amp; : &lt; makes the '<' symbol
+                  			// make sure to decode amperstands last otherwise you will double decode < and >
+                  			// original      : &lt; makes the '<' symbol
+                  			// encoded       : &amp;lt; makes the '&lt;' symbol
+                  			//
+                  			// Wrong:
+                  			// replace &amp; : &lt; makes the '&lth;' symbol
+                  			// replace &lt;  : < makes the < symbol
+                  			//
+                  			// Correct:
+                  			// reaplce &lt;  : &amp;lt; makes the '<' symbol
+                  			// replace &amp; : &lt; makes the '<' symbol
 
                         // highlight the code with prism
                         // get the grammar (language supported by prism) from the class name

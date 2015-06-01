@@ -3,8 +3,8 @@
 
     angular.module('knowledgeBlog', ['knowledgeBlog.article'])
         .config(defineRoutes)
-        .factory("knowledgeBlogService", knowledgeBlogService)
-        .controller("KnowledgeBlogController", KnowledgeBlogController);
+        .factory('knowledgeBlogService', knowledgeBlogService)
+        .controller('KnowledgeBlogController', KnowledgeBlogController);
 
     function defineRoutes($routeProvider) {
         $routeProvider.when('/blog', {
@@ -24,15 +24,15 @@
 
         result.createBlogEntry = function () {
             return $http.post('/api/blog');
-        }
+        };
 
         result.updateBlogEntry = function (entry) {
             return $http.put('/api/blog/' + entry._id, entry);
-        }
+        };
 
         result.deleteBlogEntry = function (id) {
             return $http.delete('/api/blog/' + id);
-        }
+        };
 
         result.getBlogEntry = function (id, callback) {
             $http.get('/api/blog/' + id).success(function(entry)
@@ -44,14 +44,13 @@
         return result;
     }
 
-    function KnowledgeBlogController($scope, knowledgeBlogService, $location)
-    {
+    function KnowledgeBlogController ($scope, knowledgeBlogService, $location) {
         $scope.entries = [];
         $scope.selectedEntry = {};
 
         $scope.openEntry = function(entry)
         {
-            var path = "/blog/" + entry._id;
+            var path = '/blog/' + entry._id;
             $location.path(path);
         };
 
@@ -61,7 +60,7 @@
             {
                 $scope.openEntry(result.data);
             });
-        }
+        };
 
         knowledgeBlogService.getEntries().then(function(entries)
         {
