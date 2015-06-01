@@ -64,6 +64,7 @@ gulp.task('lint', function () {
 // uglify js files
 gulp.task('uglify:js', ['package:js'], function () {
     return gulp.src(jsDistPath + jsDistFile)
+        .pipe(plugins.ngAnnotate())
         .pipe(plugins.uglify())
         .pipe(gulp.dest(jsDistPath));
 });

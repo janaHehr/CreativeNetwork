@@ -1,56 +1,40 @@
-(function()
-{
-    'use strict',
+(function () {
+    'use strict';
 
     angular.module('knowledgeBlog', ['knowledgeBlog.article'])
         .config(defineRoutes)
         .factory("knowledgeBlogService", knowledgeBlogService)
         .controller("KnowledgeBlogController", KnowledgeBlogController);
 
-    defineRoutes.$inject = ["$routeProvider"];
-    knowledgeBlogService.$inject = ["$q", "$http"];
-    KnowledgeBlogController.$inject = ["$scope", "knowledgeBlogService", "$location"];
-
-    function defineRoutes($routeProvider)
-    {
-        $routeProvider.when('/blog',
-        {
+    function defineRoutes($routeProvider) {
+        $routeProvider.when('/blog', {
             templateUrl: 'app/knowledgeBlog/knowledgeBlog.html',
             controller: 'KnowledgeBlogController'
         });
     }
 
-    function knowledgeBlogService($q, $http)
-    {
+    function knowledgeBlogService($q, $http) {
         var result = {};
-        result.getEntries = function()
-        {
-            var deferred = $q.defer();
-
+        result.getEntries = function () {
             return $http.get('/api/blog')
-                .then(function(body, status, headers, config)
-                {
+                .then(function (body) {
                     return body.data;
                 });
         };
 
-        result.createBlogEntry = function()
-        {
+        result.createBlogEntry = function () {
             return $http.post('/api/blog');
         }
 
-        result.updateBlogEntry = function(entry)
-        {
+        result.updateBlogEntry = function (entry) {
             return $http.put('/api/blog/' + entry._id, entry);
         }
 
-        result.deleteBlogEntry = function(id)
-        {
+        result.deleteBlogEntry = function (id) {
             return $http.delete('/api/blog/' + id);
         }
 
-        result.getBlogEntry = function(id, callback)
-        {
+        result.getBlogEntry = function (id, callback) {
             $http.get('/api/blog/' + id).success(function(entry)
             {
                 callback(entry);

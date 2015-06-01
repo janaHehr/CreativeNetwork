@@ -1,8 +1,6 @@
 angular.module('navigation', []).
 directive('navLink', navLink);
 
-navLink.$inject = ["$location"];
-
 function navLink($location)
 {
     var activeCssClass = "md-accent";

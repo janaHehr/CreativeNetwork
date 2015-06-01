@@ -9,9 +9,7 @@ angular.module('creativeNetwork', [
     ])
     .config(init);
 
-init.$inject = ["$routeProvider", "$locationProvider", "$showdownProvider", "$mdThemingProvider"];
-
-function init($routeProvider, $locationProvider, $ShowdownProvider, $mdThemingProvider)
+function init($routeProvider, $locationProvider, $showdownProvider, $mdThemingProvider)
 {
     $locationProvider.html5Mode(true);
 
@@ -20,7 +18,7 @@ function init($routeProvider, $locationProvider, $ShowdownProvider, $mdThemingPr
         redirectTo: '/'
     });
 
-    $ShowdownProvider.loadExtension('prismsyntaxhighlighter');
+    $showdownProvider.loadExtension('prismsyntaxhighlighter');
 
     $mdThemingProvider.theme("default")
         .primaryPalette("brown")
