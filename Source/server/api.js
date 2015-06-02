@@ -8,6 +8,7 @@ exports.createBlogEntry = function(request, response)
     newEntry.title = request.body.title || '';
     newEntry.author = request.body.author || '';
     newEntry.content = request.body.content || '';
+    newEntry.tags = request.body.tags || '';
 
     knowledgeBlogService.createBlogEntry(newEntry, function(err, entry)
     {

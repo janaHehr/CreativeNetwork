@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var nano = require('nano')('https://admin:f7760a334e60@couchdb-ef42ae.smileupps.com');
 var db = nano.use('knowledgebase');
@@ -49,6 +49,7 @@ exports.updateBlogEntry = function(id, entry, callback)
         loadedEntry.author = entry.author;
         loadedEntry.title = entry.title;
         loadedEntry.content = entry.content;
+        loadedEntry.tags = entry.tags;
 
         //TODO handle revision conflicts?
         db.insert(loadedEntry, id, function(err, body)
@@ -82,32 +83,11 @@ exports.getBlogEntry = function(id, callback)
 {
     db.get(id, function(err, body)
     {
-        if (err)
+        if (err) {
             callback(err);
-        else
+        }
+        else {
             callback(body);
+        }
     });
 };
-
-//CouchDB stuff
-//create database
-// nano.db.create("test", function(err)
-// {
-//     console.log(err);
-// });
-
-//add document
-// db.insert({blubb:42}, "blubb", function (err) {
-//     console.log(err);
-// });
-
-//update document (_rev is necessary!)
-// db.insert({blubb:43, _rev: "1-..."}, "blubb", function (err) {
-//     console.log(err);
-// });
-
-//get document
-// db.get("blubb", function(err, body)
-// {
-//     console.log(body._rev);
-// });
