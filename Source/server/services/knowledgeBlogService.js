@@ -6,7 +6,7 @@ var db = nano.use('knowledgebase');
 
 exports.createBlogEntry = function(entry, callback)
 {
-    db.insert(entry, null, function(err, body, header)
+    db.insert(entry, null, function(err, body)
     {
         if (err)
         {
@@ -52,13 +52,13 @@ exports.updateBlogEntry = function(id, entry, callback)
         loadedEntry.tags = entry.tags;
 
         //TODO handle revision conflicts?
-        db.insert(loadedEntry, id, function(err, body)
+        db.insert(loadedEntry, id, function(err)
         {
             if (err)
                 callback(err);
             else
                 callback(null, entry);
-        })
+        });
     });
 };
 

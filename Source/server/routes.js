@@ -1,4 +1,6 @@
-var api = require("./api");
+'use strict';
+
+var api = require('./api');
 
 module.exports = function(app)
 {
