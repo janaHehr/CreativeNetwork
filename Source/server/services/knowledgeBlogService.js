@@ -1,6 +1,6 @@
 'use strict';
 
-var nano = require('nano')('https://admin:f7760a334e60@couchdb-ef42ae.smileupps.com');
+var nano = require('nano')('https://creativenetwork.iriscouch.com');
 var db = nano.use('knowledgebase');
 //console.log(db);
 
