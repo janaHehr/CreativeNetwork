@@ -2,36 +2,30 @@
 <html>
 
 <head>
-    <base href="/">
-    <title>Creative Network</title>
-    <!-- inject:css -->
-    <!-- endinject -->
+  <base href="/">
+  <title>Creative Network</title>
+  <!-- inject:css -->
+  <!-- endinject -->
 </head>
-
-
 <body ng-app="creativeNetwork" layout="column">
-    <md-content flex layout="column">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <img src="content/logo.png" alt="" style="position:absolute;height: 60px;margin: 3px 5px 0 0;">
+      <h2 style="margin-left:80px" class="md-display-1">Creative Network</h2><sub style="margin:3px 0 0 5px; color:#fff">beta</sub>
+      <span flex="10"></span>
+      <md-button nav-link class="" ng-href="/">Start</md-button>
+      <md-button nav-link class="" ng-href="/blog">Knowledge Blog</md-button>
+    </div>
+  </md-toolbar>
 
-                <img src="content/logo.png" style="height: 120px;  margin: 40px 0 0 0;" alt="">
-                <h2 class="md-display-1">Creative Network</h2><sub style="margin:3px 0 0 5px; color:#fff">beta</sub>
-                <span flex="10"></span>
-                <md-button nav-link class="" ng-href="/">Start</md-button>
-                <md-button nav-link class="" ng-href="/blog">Knowledge Blog</md-button>
-            </div>
-        </md-toolbar>
+  <md-content flex ng-view layout="column"></md-content>
 
-        <md-content layout="column" style="padding: 50px 20px 20px" flex ng-view="">
-        </md-content>
-
-        <md-content layout="row" layout-margin layout-padding layout-align="end center">
+  <md-content layout="row" layout-margin layout-padding layout-align="end center">
             <md-button style="font-size: 1.8em; opacity: 0.8;" class="md-warn md-fab">+</md-button>
         </md-content>
-    </md-content>
+  <!-- inject:js -->
+  <!-- endinject -->
 
-    <!-- inject:js -->
-    <!-- endinject -->
 </body>
 
 </html>

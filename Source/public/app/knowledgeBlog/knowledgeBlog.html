@@ -1,4 +1,5 @@
-<md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
+
+<md-grid-list style="margin:20px" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
     <md-grid-tile ng-click="openEntry(entry)" ng-repeat="entry in entries track by entry._id" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="color: #fff; background: rgb(121,85,72);">
         <span layout-padding>{{entry.title}}</span>
         <md-grid-tile-footer>

@@ -21,7 +21,6 @@ exports.createBlogEntry = function(entry, callback)
 exports.deleteBlogEntry = function(id, callback)
 {
     //delete only with correct rev
-    console.log('start');
     db.destroy(id, function(err)
     {
         console.log('2');
