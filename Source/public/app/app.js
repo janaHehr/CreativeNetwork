@@ -4,6 +4,7 @@
           'ngRoute',
           'truncate',
           'navigation',
+          'start',
           'knowledgeBlog',
           'ui.codemirror',
           'comparex.syncScroll',

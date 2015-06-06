@@ -10,27 +10,28 @@
 
 
 <body ng-app="creativeNetwork" layout="column">
-    <md-toolbar>
-        <div class="md-toolbar-tools">
+    <md-content flex layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
 
-            <img src="content/logo.png" style="height: 120px;  margin: 40px 0 0 0;" alt="">
-            <h2 class="md-display-1">Creative Network</h2><sub style="margin:3px 0 0 5px; color:#fff">beta</sub>
-            <span flex="10"></span>
-            <md-button nav-link class="" ng-href="/">Start</md-button>
-            <md-button nav-link class="" ng-href="/blog">Knowledge Blog</md-button>
-        </div>
-    </md-toolbar>
+                <img src="content/logo.png" style="height: 120px;  margin: 40px 0 0 0;" alt="">
+                <h2 class="md-display-1">Creative Network</h2><sub style="margin:3px 0 0 5px; color:#fff">beta</sub>
+                <span flex="10"></span>
+                <md-button nav-link class="" ng-href="/">Start</md-button>
+                <md-button nav-link class="" ng-href="/blog">Knowledge Blog</md-button>
+            </div>
+        </md-toolbar>
 
-    <md-content layout="column" layout-padding="20" flex ng-view="">
-    </md-content>
+        <md-content layout="column" style="padding: 50px 20px 20px" flex ng-view="">
+        </md-content>
 
-    <md-content layout="row" layout-padding layout-align="end center">
-        <md-button class="md-fab">+</md-button>
+        <md-content layout="row" layout-margin layout-padding layout-align="end center">
+            <md-button style="font-size: 1.8em; opacity: 0.8;" class="md-warn md-fab">+</md-button>
+        </md-content>
     </md-content>
 
     <!-- inject:js -->
     <!-- endinject -->
-
 </body>
 
 </html>
