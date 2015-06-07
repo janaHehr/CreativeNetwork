@@ -34,11 +34,11 @@
             return $http.delete('/api/blog/' + id);
         };
 
-        result.getBlogEntry = function (id, callback) {
-            $http.get('/api/blog/' + id).success(function(entry)
-            {
-                callback(entry);
-            });
+        result.getBlogEntry = function (id) {
+          return $http.get('/api/blog/' + id)
+          .then(function (body) {
+              return body.data;
+          });
         };
 
         return result;

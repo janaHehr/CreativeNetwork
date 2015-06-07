@@ -20,7 +20,6 @@
 
 	function KnowledgeBlogArticleController($scope, knowledgeBlogService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil, $log) {
 		$scope.entries = [];
-		$scope.article = {};
 		$scope.openSidebar = buildToggler('sidebar');
 
 		/**
@@ -40,7 +39,7 @@
 			$location.path(path);
 		};
 
-		knowledgeBlogService.getBlogEntry($routeParams.id, function (entry) {
+		knowledgeBlogService.getBlogEntry($routeParams.id).then(function (entry) {
 			$scope.article = entry;
 		});
 
