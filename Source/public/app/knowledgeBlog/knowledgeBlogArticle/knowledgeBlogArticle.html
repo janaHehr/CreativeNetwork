@@ -1,10 +1,9 @@
 <md-button style="position:fixed; top:5px;z-index:100" class="md-icon-button" aria-label="Aktionen" ng-click="openSidebar()">
   <i class="icon ion-navicon-round" style="color: white;font-size:2em"></i>
 </md-button>
-<div layout="row" style="margin:5px;">
+<div layout="row" style="margin:5px;flex:1">
 
-    <form ng-submit="save()" style="width:100%" name="form">
-        <div>
+    <form ng-submit="save()" style="width:100%;overflow:hidden" flex name="form">
             <md-input-container>
                 <label>Titel</label>
                 <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
@@ -16,25 +15,12 @@
                 <div flex="{{model.isEditMode?50:0}}" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll
                      preview-container=" 'preview-container' " markdown-container=" 'markdown-container' ">
                 </div>
-                <div flex="{{model.isEditMode?50:100}}">
+                <div flex="{{model.isEditMode?50:100}}" style="overflow:scroll">
                     <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
-                        <div sd-model-to-html="article.content" id="markdown-container" />
+                        <div ng-if="article.content" sd-model-to-html="article.content" id="markdown-container" />
                     </section>
                 </div>
             </div>
-        </div>
-        <!-- <div style="background-color:lightgray;width:100%; position:fixed; bottom:0;" layout="row">
-          <div flex>
-
-        </div>
-        <div flex offset="50">
-            <section layout="row" layout-sm="column" layout-align="end center">
-                <md-button md-no-ink class="md-primary" ng-hide="model.isEditMode" ng-click="model.isEditMode=!model.isEditMode" type="button">edit</md-button>
-                <md-button ng-show="model.isEditMode" type="submit">save</md-button>
-                <md-button ng-hide="model.isEditMode" class="md-warn" ng-click="Delete()" type="button">delete</md-button>
-            </section>
-          </div>
-        </div> -->
     </form>
 
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
@@ -55,6 +41,7 @@
     <nav mfb-menu position="br" effect="slidein-spring" label="{{model.isEditMode?'save changes':'edit'}}" ng-click="model.isEditMode?save():model.isEditMode=true"
          active-icon="{{model.isEditMode?'ion-checkmark-round':'ion-edit'}}" resting-icon="ion-navicon-round"
          toggling-method="hover">
+         <button mfb-button icon="ion-star" label="add to favourites" ng-disabled="true" mfb-button-close ng-click=""></button>
       <button mfb-button icon="ion-trash-a" label="delete" ng-click="delete()" mfb-button-close></button>
     </nav>
 </div>
