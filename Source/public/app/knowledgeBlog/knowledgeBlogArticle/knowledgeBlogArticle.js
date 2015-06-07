@@ -61,8 +61,11 @@
 		};
 
 		$scope.Delete = function () {
-			knowledgeBlogService.deleteBlogEntry($scope.article._id);
-			$scope.model.isEditMode = false;
+			knowledgeBlogService.deleteBlogEntry($scope.article._id).then(function(){
+				$location.path('/blog');
+			},function(){
+				//TODO: Fehlerfall behandeln
+			});
 		};
 
 		$scope.model = {

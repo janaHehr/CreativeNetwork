@@ -18,20 +18,27 @@ exports.createBlogEntry = function(entry, callback)
     });
 };
 
-exports.deleteBlogEntry = function(id, callback)
-{
+exports.deleteBlogEntry = function(id, callback) {
+  //get current rev of dataset
+  db.get(id, null, function(err, loadedEntry)
+  {
+      if (err)
+      {
+          callback(err);
+          return;
+      }
     //delete only with correct rev
-    db.destroy(id, function(err)
+    db.destroy(id,loadedEntry._rev, function(err)
     {
-        console.log('2');
         if (err)
         {
             callback(err);
             return;
         }
-        console.log(err);
+
         callback(null);
     });
+  });
 };
 
 exports.updateBlogEntry = function(id, entry, callback)
