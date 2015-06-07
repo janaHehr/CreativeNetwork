@@ -5,13 +5,10 @@
 		.config(defineRoutes)
 		.controller('KnowledgeBlogArticleController', KnowledgeBlogArticleController)
 
-	.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+	.controller('SidebarController', function ($scope, $timeout, $mdSidenav, $log) {
 		$scope.close = function () {
-			$mdSidenav('right').close()
-				.then(function () {
-					$log.debug("close RIGHT is done");
-				});
-		};
+			$mdSidenav('sidebar').close();
+			};
 	});
 
 	function defineRoutes($routeProvider) {
@@ -24,19 +21,15 @@
 	function KnowledgeBlogArticleController($scope, knowledgeBlogService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil, $log) {
 		$scope.entries = [];
 		$scope.article = {};
-		$scope.toggleRight = buildToggler('right');
+		$scope.openSidebar = buildToggler('sidebar');
 
 		/**
 		 * Build handler to open/close a SideNav; when animation finishes
-		 * report completion in console
 		 */
 		function buildToggler(navID) {
 			var debounceFn = $mdUtil.debounce(function () {
 				$mdSidenav(navID)
-					.toggle()
-					.then(function () {
-						$log.debug("toggle " + navID + " is done");
-					});
+					.toggle();
 			}, 300);
 			return debounceFn;
 		}
@@ -55,12 +48,14 @@
 			$scope.entries = entries;
 		});
 
-		$scope.Save = function () {
+		$scope.save = function () {
+			if(!$scope.form.$invalid) {
 				knowledgeBlogService.updateBlogEntry($scope.article);
 				$scope.model.isEditMode = false;
+			}
 		};
 
-		$scope.Delete = function () {
+		$scope.delete = function () {
 			knowledgeBlogService.deleteBlogEntry($scope.article._id).then(function(){
 				$location.path('/blog');
 			},function(){

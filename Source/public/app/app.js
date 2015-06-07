@@ -8,7 +8,8 @@
           'knowledgeBlog',
           'ui.codemirror',
           'comparex.syncScroll',
-           'ngMaterial'
+           'ngMaterial',
+           'ng-mfb'
       ])
       .config(init);
 

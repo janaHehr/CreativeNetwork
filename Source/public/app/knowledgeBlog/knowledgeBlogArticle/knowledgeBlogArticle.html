@@ -1,11 +1,17 @@
+<md-button style="position:fixed; top:5px;z-index:100" class="md-icon-button" aria-label="Aktionen" ng-click="openSidebar()">
+  <i class="icon ion-navicon-round" style="color: white;font-size:2em"></i>
+</md-button>
 <div layout="row" style="margin:5px;">
-    <form ng-submit="Save()" style="width:100%">
+
+    <form ng-submit="save()" style="width:100%" name="form">
         <div>
             <md-input-container>
                 <label>Titel</label>
                 <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
             </md-input-container>
-
+            <md-input-container>
+                <input ng-model="article.tags">
+            </md-input-container>
             <div layout="row" layout-wrap>
                 <div flex="{{model.isEditMode?50:0}}" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll
                      preview-container=" 'preview-container' " markdown-container=" 'markdown-container' ">
@@ -17,30 +23,22 @@
                 </div>
             </div>
         </div>
-        <div style="background-color:lightgray;width:100%; position:fixed; bottom:0;" layout="row">
+        <!-- <div style="background-color:lightgray;width:100%; position:fixed; bottom:0;" layout="row">
           <div flex>
-          <md-input-container>
-              <input ng-model="article.tags">
-          </md-input-container>
+
         </div>
         <div flex offset="50">
             <section layout="row" layout-sm="column" layout-align="end center">
                 <md-button md-no-ink class="md-primary" ng-hide="model.isEditMode" ng-click="model.isEditMode=!model.isEditMode" type="button">edit</md-button>
                 <md-button ng-show="model.isEditMode" type="submit">save</md-button>
                 <md-button ng-hide="model.isEditMode" class="md-warn" ng-click="Delete()" type="button">delete</md-button>
-                <md-button ng-click="toggleRight()" type="button" class="md-primary">
-                    Toggle right
-                </md-button>
             </section>
           </div>
-        </div>
+        </div> -->
     </form>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-        <md-content ng-controller="RightCtrl" layout-padding>
-            <md-button ng-click="close()" class="md-primary">
-                Close
-            </md-button>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
+        <md-content ng-controller="SidebarController" layout-padding>
             <md-list>
                 <!--TODO:selektiertes Element hervorheben und Liste geöffnet lassen-->
                 <md-list-item class="md-2-line" ng-repeat="entry in entries" ng-click="openEntry(entry)">
@@ -54,5 +52,9 @@
             </md-list>
         </md-content>
     </md-sidenav>
-
+    <nav mfb-menu position="br" effect="slidein-spring" label="{{model.isEditMode?'save changes':'edit'}}" ng-click="model.isEditMode?save():model.isEditMode=true"
+         active-icon="{{model.isEditMode?'ion-checkmark-round':'ion-edit'}}" resting-icon="ion-navicon-round"
+         toggling-method="hover">
+      <button mfb-button icon="ion-trash-a" label="delete" ng-click="delete()" mfb-button-close></button>
+    </nav>
 </div>

@@ -139,6 +139,12 @@ gulp.task('copy:content', function () {
         .pipe(gulp.dest(publicDistPath + 'content'));
 });
 
+// copy fonts from all bower_components to dist
+gulp.task('copy:fonts', function () {
+    return gulp.src(publicSrcDir + 'bower_components/ionicons/fonts/*.*')
+        .pipe(gulp.dest(publicDistPath + 'fonts'));
+});
+
 gulp.task('copy:server', function(){
     return gulp.src(serverFiles)
         .pipe(gulp.dest(serverDistPath));
@@ -150,7 +156,7 @@ gulp.task('copy:package.json', function(){
 });
 
 // copy static files to dist
-gulp.task('copy', ['copy:content']);
+gulp.task('copy', ['copy:content','copy:fonts']);
 
 // copy index.html and inject combines js dist file
 gulp.task('index', function () {
