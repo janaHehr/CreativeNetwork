@@ -2,7 +2,6 @@
 
 var nano = require('nano')('https://creativenetwork.iriscouch.com');
 var db = nano.use('knowledgebase');
-//console.log(db);
 
 exports.createBlogEntry = function(entry, callback)
 {

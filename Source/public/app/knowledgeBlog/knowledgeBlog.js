@@ -22,8 +22,8 @@
                 });
         };
 
-        result.createBlogEntry = function () {
-            return $http.post('/api/blog');
+        result.createBlogEntry = function (entry) {
+            return $http.post('/api/blog',entry);
         };
 
         result.updateBlogEntry = function (entry) {
@@ -56,10 +56,7 @@
 
         $scope.createBlogEntry = function()
         {
-            knowledgeBlogService.createBlogEntry().then(function(result)
-            {
-                $scope.openEntry(result.data);
-            });
+          $location.path('/blog/new');
         };
 
         knowledgeBlogService.getEntries().then(function(entries)

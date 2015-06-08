@@ -12,19 +12,19 @@
 	});
 
 	function defineRoutes($routeProvider) {
-		$routeProvider.when('/blog/:id', {
-			templateUrl: 'app/knowledgeBlog/knowledgeBlogArticle/knowledgeBlogArticle.html',
-			controller: 'KnowledgeBlogArticleController'
-		});
+		$routeProvider
+			.when('/blog/new', {
+				templateUrl: 'app/knowledgeBlog/knowledgeBlogArticle/knowledgeBlogArticle.html',
+				controller: 'KnowledgeBlogArticleController'
+			})
+			.when('/blog/:id', {
+				templateUrl: 'app/knowledgeBlog/knowledgeBlogArticle/knowledgeBlogArticle.html',
+				controller: 'KnowledgeBlogArticleController'
+			});
 	}
 
 	function KnowledgeBlogArticleController($scope, knowledgeBlogService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil, $log) {
-		$scope.entries = [];
-		$scope.openSidebar = buildToggler('sidebar');
 
-		/**
-		 * Build handler to open/close a SideNav; when animation finishes
-		 */
 		function buildToggler(navID) {
 			var debounceFn = $mdUtil.debounce(function () {
 				$mdSidenav(navID)
@@ -33,23 +33,41 @@
 			return debounceFn;
 		}
 
+		function init() {
+			//open existing dataset
+			if($routeParams.id) {
+				knowledgeBlogService.getBlogEntry($routeParams.id).then(function (entry) {
+					$scope.article = entry;
+				});
+			}
+			//new dataset:route /blog/new
+			else {
+				$scope.article = {};
+				$scope.model.isEditMode=true;
+			}
+
+			knowledgeBlogService.getEntries().then(function (entries) {
+				$scope.entries = entries;
+			});
+		}
+
+		$scope.openSidebar = buildToggler('sidebar');
+
 		// TODO: DRY
 		$scope.openEntry = function (entry) {
 			var path = '/blog/' + entry._id;
 			$location.path(path);
 		};
 
-		knowledgeBlogService.getBlogEntry($routeParams.id).then(function (entry) {
-			$scope.article = entry;
-		});
-
-		knowledgeBlogService.getEntries().then(function (entries) {
-			$scope.entries = entries;
-		});
-
 		$scope.save = function () {
 			if(!$scope.form.$invalid) {
-				knowledgeBlogService.updateBlogEntry($scope.article);
+				if($routeParams.id) {
+					knowledgeBlogService.updateBlogEntry($scope.article);
+				}
+				else {
+					knowledgeBlogService.createBlogEntry($scope.article);
+				}
+
 				$scope.model.isEditMode = false;
 			}
 		};
@@ -73,5 +91,7 @@
 				mode: 'markdown'
 			}
 		};
+
+		init();
 	}
 })();

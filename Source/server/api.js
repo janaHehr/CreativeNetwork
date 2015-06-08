@@ -4,11 +4,7 @@ var knowledgeBlogService = require('./services/knowledgeBlogService');
 
 exports.createBlogEntry = function(request, response)
 {
-    var newEntry = {};
-    newEntry.title = request.body.title || '';
-    newEntry.author = request.body.author || '';
-    newEntry.content = request.body.content || '';
-    newEntry.tags = request.body.tags || '';
+    var newEntry = request.body;
 
     knowledgeBlogService.createBlogEntry(newEntry, function(err, entry)
     {
