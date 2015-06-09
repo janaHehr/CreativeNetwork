@@ -1,46 +1,76 @@
-<md-button style="position:fixed; top:5px;z-index:100" class="md-icon-button" aria-label="Aktionen" ng-click="openSidebar()">
-  <i class="icon ion-navicon-round" style="color: white;font-size:2em"></i>
-</md-button>
-<div layout="row" style="margin:5px;flex:1">
-    <form ng-submit="save()" style="width:100%;overflow:hidden" flex name="form">
-            <md-input-container>
-                <label>Titel</label>
-                <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
-            </md-input-container>
-            <md-input-container>
-                <input ng-model="article.tags">
-            </md-input-container>
-            <div layout="row" layout-wrap>
-                <div flex="{{model.isEditMode?50:0}}" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll
-                     preview-container=" 'preview-container' " markdown-container=" 'markdown-container' ">
-                </div>
-                <div flex="{{model.isEditMode?50:100}}" style="overflow:scroll">
-                    <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
-                        <div ng-if="article.content" sd-model-to-html="article.content" id="markdown-container" />
-                    </section>
-                </div>
-            </div>
-    </form>
+<style>
+    /*TODO: check and move to correct scss/less/css file*/
 
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
-        <md-content ng-controller="SidebarController" layout-padding>
-            <md-list>
-                <!--TODO:selektiertes Element hervorheben und Liste geöffnet lassen-->
-                <md-list-item class="md-2-line" ng-repeat="entry in entries" ng-click="openEntry(entry)">
-                    <div class="md-list-item-text">
-                        <h3>{{ entry.title }}</h3>
-                        <p>{{entry.author}}</p>
-                        <p>{{entry.tags}}</p>
-                    </div>
-                    <md-divider></md-divider>
-                </md-list-item>
-            </md-list>
-        </md-content>
-    </md-sidenav>
-    <nav mfb-menu position="br" effect="slidein-spring" label="{{model.isEditMode?'save changes':'edit'}}" ng-click="model.isEditMode?save():model.isEditMode=true"
-         active-icon="{{model.isEditMode?'ion-checkmark-round':'ion-edit'}}" resting-icon="ion-navicon-round"
-         toggling-method="hover">
-         <button mfb-button icon="ion-star" label="add to favourites" ng-disabled="true" mfb-button-close ng-click=""></button>
-      <button mfb-button icon="ion-trash-a" label="delete" ng-click="delete()" mfb-button-close></button>
-    </nav>
-</div>
+    #edit {
+        position: absolute;
+        left: 0;
+        width: 50%;
+        bottom: 0;
+        top: 0;
+    }
+
+    #edit > .CodeMirror {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: auto;
+    }
+
+    #preview {
+        position: absolute;
+        left: 52%;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        overflow: auto;
+    }
+</style>
+
+<!-- TODO: move inline styles to correct scss/less/css file -->
+
+<md-button style="position: fixed; top: 10px; left: -2px; z-index: 100;" class="md-icon-button" aria-label="Aktionen" ng-click="openSidebar()">
+    <i class="icon ion-navicon-round" style="color: white; font-size: 2em;"></i>
+</md-button>
+<form flex layout="column" layout-padding ng-submit="save()" style="width: 100%; overflow: hidden;" name="form">
+    <md-input-container>
+        <label>Titel</label>
+        <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
+    </md-input-container>
+    <md-input-container>
+        <input ng-model="article.tags">
+    </md-input-container>
+    <md-content flex style="position: relative;">
+        <div id="edit" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' " markdown-container=" 'markdown-container' ">
+        </div>
+        <div>
+            <section id="preview" ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
+                <div ng-if="article.content" sd-model-to-html="article.content" id="markdown-container" />
+            </section>
+        </div>
+    </md-content>
+</form>
+
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
+    <md-content ng-controller="SidebarController" layout-padding>
+        <md-list>
+            <!--TODO:selektiertes Element hervorheben und Liste geöffnet lassen-->
+            <md-list-item class="md-2-line" ng-repeat="entry in entries" ng-click="openEntry(entry)">
+                <div class="md-list-item-text">
+                    <h3>{{ entry.title }}</h3>
+                    <p>{{entry.author}}</p>
+                    <p>{{entry.tags}}</p>
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>
+
+<nav mfb-menu position="br" effect="slidein-spring" label="{{model.isEditMode?'save changes':'edit'}}" ng-click="model.isEditMode?save():model.isEditMode=true" active-icon="{{model.isEditMode?'ion-checkmark-round':'ion-edit'}}" resting-icon="ion-navicon-round"
+toggling-method="hover">
+    <button mfb-button icon="ion-star" label="add to favourites" ng-disabled="true" mfb-button-close ng-click=""></button>
+    <button mfb-button icon="ion-trash-a" label="delete" ng-click="delete()" mfb-button-close></button>
+</nav>
