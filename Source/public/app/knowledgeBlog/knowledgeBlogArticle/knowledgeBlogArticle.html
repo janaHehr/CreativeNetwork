@@ -53,8 +53,8 @@
 </form>
 
 
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
-    <md-content ng-controller="SidebarController" layout-padding>
+<md-sidenav layout class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
+    <md-content flex ng-controller="SidebarController" layout="column" layout-padding>
         <md-list>
             <!--TODO:selektiertes Element hervorheben und Liste geöffnet lassen-->
             <md-list-item class="md-2-line" ng-repeat="entry in entries" ng-click="openEntry(entry)">
