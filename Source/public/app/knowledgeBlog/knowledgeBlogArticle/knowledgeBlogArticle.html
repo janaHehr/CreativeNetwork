@@ -18,7 +18,7 @@
         height: auto;
     }
 
-    #preview {
+    #preview-container {
         position: absolute;
         left: 52%;
         right: 0;
@@ -45,7 +45,7 @@
         <div id="edit" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' " markdown-container=" 'markdown-container' ">
         </div>
         <div>
-            <section id="preview" ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
+            <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
                 <div ng-if="article.content" sd-model-to-html="article.content" id="markdown-container" />
             </section>
         </div>
