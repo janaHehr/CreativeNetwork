@@ -1,11 +1,59 @@
-<md-grid-list style="margin:20px" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
+<md-content layout-padding>
+   <md-content layout layout-align="space-around center" ng-repeat="entry in entries track by entry._id">
+       <md-content flex="50" layout="column" style="background-color:gray;min-height:50px;margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc">
+          <div style="background-color:gray;overflow:hidden;height:200px;">
+             <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image">
+           </div>
+           <h2 class="md-title">{{entry.title}}</h2>
+           <span>
+               {{entry.content}}
+           </span>
+       </md-content>
+   </md-content>
+</md-content>
+  <!-- <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start start">
+    <div layout="row" layout-wrap style="margin:5px">
+    <div flex="66">
+      <div layout="column" layout-align="space-around start">
+       <div>Jana Hehr</div>
+       <div>3 days ago</div>
+     </div>
+    </div>
+    <div flex="33">
+    Tag1, Tag2
+    </div>
+  </div>
+  </md-whiteframe> -->
+  <!-- <img ng-src="https://material.angularjs.org/latest/img/washedout.png" class="md-card-image">
+  <h2 class="md-title">{{entry.title}}</h2>
+  <span>
+   {{entry.content}}
+ </span>
+  </div> -->
+
+   <!-- <md-card style="width:50%;" ng-repeat="entry in entries track by entry._id">
+     <img ng-src="https://material.angularjs.org/latest/img/washedout.png" class="md-card-image" alt="Washed Out">
+     <md-card-content>
+       <h2 class="md-title">{{entry.title}}</h2>
+       <p>
+        {{entry.content}}
+       </p>
+     </md-card-content>
+     <div class="md-actions" layout="row" layout-align="end center">
+       <md-button ng-click="openEntry(entry)">Read all</md-button>
+     </div>
+   </md-card>
+   <br/> -->
+   <md-content>
+
+<!-- <md-grid-list style="margin:20px" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
     <md-grid-tile ng-click="openEntry(entry)" ng-repeat="entry in entries track by entry._id" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="color: #fff; background: rgb(121,85,72);">
         <span layout-padding>{{entry.title}}</span>
         <md-grid-tile-footer>
             <h3>{{entry.author}}</h3>
         </md-grid-tile-footer>
     </md-grid-tile>
-</md-grid-list>
+</md-grid-list> -->
 <nav mfb-menu position="br" effect="slidein-spring" label="Create new post" ng-click="createBlogEntry()"
      active-icon="ion-plus-round" resting-icon="ion-navicon-round"
      toggling-method="hover">
