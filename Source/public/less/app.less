@@ -1,15 +1,16 @@
 //application wide styles here
-// .CodeMirror {
-//   /* Set height, width, borders, and global font properties here */
-//
-//   height: 100%;
-//   color: red;
-// }
+@import 'global.less';
 
-//TODO:nur temp. Hack bis finales Theme gefunden
-// md-content.md-default-theme{
-//   background-color:#fff;
-// }
+//material manuell changes
+md-content.md-default-theme{
+   background-color:@primaryBackgroundColor;
+ }
+
+ .mfb-component__button--child, .mfb-component__button--main
+ {
+   background-color: @primaryColor;
+ }
+
 body
 {
   font-family: 'Open Sans', sans-serif;
