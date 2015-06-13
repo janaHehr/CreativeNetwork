@@ -105,7 +105,7 @@ gulp.task('uglify:templates', function() {
 });
 
 //TODO: less / sass?
-// process sass file to css
+// process less file to css
 gulp.task('less', function () {
     return gulp.src(mainLessFile)
         .pipe(plugins.less())
@@ -117,7 +117,7 @@ gulp.task('less', function () {
         .pipe(gulp.dest(cssDistPath));
 });
 
-// process sass file to css without minify
+// process less file to css without minify
 gulp.task('less:dev', function () {
     return gulp.src(mainLessFile)
         .pipe(plugins.less())

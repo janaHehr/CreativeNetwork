@@ -1,7 +1,29 @@
 'use strict';
 
-var nano = require('nano')('https://creativenetwork.iriscouch.com');
-var db = nano.use('knowledgebase');
+// var nano = require('nano')('https://creativenetwork.iriscouch.com');
+var nano = require('nano')('http://192.168.59.103:5984');
+var db;
+var dbName = 'knowledgebase';
+nano.db.get(dbName,function(err,body){
+  if(err){
+    console.log('DB does not exist: create new');
+    nano.db.create(dbName,function(err,body){
+      if(!err){
+        console.log('DB created');
+         db = nano.use(dbName);
+      }
+      else{
+        console.log('Could not create DB. '+err);
+      }
+    });
+  }
+  else{
+    console.log('DB exists');
+    db = nano.use(dbName);
+  }
+});
+
+
 
 exports.createBlogEntry = function(entry, callback)
 {
@@ -59,10 +81,12 @@ exports.updateBlogEntry = function(id, entry, callback)
         //TODO handle revision conflicts?
         db.insert(loadedEntry, id, function(err)
         {
-            if (err)
+            if (err){
                 callback(err);
-            else
+              }
+            else {
                 callback(null, entry);
+              }
         });
     });
 };

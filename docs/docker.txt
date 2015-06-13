@@ -1,0 +1,12 @@
+1. boot2docker.io -->Windows installer
+2. https://registry.hub.docker.com/u/klaemo/couchdb/
+	-->docker pull klaemo/couchdb:latest
+	-->docker run -d -p 5984:5984 --name knowledgeblog klaemo/couchdb
+		-->macht pull automatisch mit, legt container unter dem Namen knowledgeblog an
+	-->docker ps -a 
+		-->listet alle docker container auf 
+	-->docker stop guid or name
+	-->docker start knowledgeblog
+boot2docker ip
+boot2docker down -->beenden boot2docker
+boot2docker up--starten boot2docker
