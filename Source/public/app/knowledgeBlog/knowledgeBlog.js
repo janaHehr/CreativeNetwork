@@ -17,8 +17,11 @@
         $scope.selectedEntry = {};
 
         $scope.openEntry = function(entry) {
-            var path = '/blog/' + entry._id;
-            $location.path(path);
+
+            if (entry && entry._id) {
+                var path = '/blog/' + entry._id;
+                $location.path(path);
+            }
         };
 
         $scope.createBlogEntry = function() {

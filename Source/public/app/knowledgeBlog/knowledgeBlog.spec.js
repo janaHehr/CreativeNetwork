@@ -25,7 +25,7 @@ describe('knowledgeBlog', function() {
             $filter: _$filter_
         });
     }));
-    describe('openEntry', function() {
+    ddescribe('openEntry', function() {
         it('should change location to blog/:id', function() {
             spyOn($location, 'path');
             $scope.openEntry({
@@ -33,6 +33,22 @@ describe('knowledgeBlog', function() {
             });
             //see documentation of jasmine for all function names
             expect($location.path).toHaveBeenCalledWith('/blog/42');
+        });
+
+        it('should not change location if no entry with an id is given', function() {
+            spyOn($location, 'path');
+            $scope.openEntry({});
+
+            //see documentation of jasmine for all function names
+            expect($location.path).not.toHaveBeenCalled();
+        });
+
+        it('should not change location if no entry is given at all', function() {
+            spyOn($location, 'path');
+            $scope.openEntry();
+
+            //see documentation of jasmine for all function names
+            expect($location.path).not.toHaveBeenCalled();
         });
     });
 });
