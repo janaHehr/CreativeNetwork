@@ -5,23 +5,29 @@ var nano = require('nano')('http://192.168.59.103:5984');
 var db;
 var dbName = 'knowledgebase';
 
-nano.db.get(dbName,function(err,body){
-  if(err){
-    console.log('DB does not exist: create new');
-    nano.db.create(dbName,function(err,body){
-      if(!err){
-        console.log('DB created');
-         db = nano.use(dbName);
-      }
-      else{
-        console.log('Could not create DB. '+err);
-      }
-    });
-  }
-  else{
-    console.log('DB already exists. Perfect, time to start.');
-    db = nano.use(dbName);
-  }
+nano.db.get(dbName, function(err)
+{
+    if (err)
+    {
+        console.log('DB does not exist: create new');
+        nano.db.create(dbName, function(err)
+        {
+            if (!err)
+            {
+                console.log('DB created');
+                db = nano.use(dbName);
+            }
+            else
+            {
+                console.log('Could not create DB. ' + err);
+            }
+        });
+    }
+    else
+    {
+        console.log('DB already exists. Perfect, time to start.');
+        db = nano.use(dbName);
+    }
 });
 
 exports.createBlogEntry = function(entry, callback)
@@ -38,27 +44,28 @@ exports.createBlogEntry = function(entry, callback)
     });
 };
 
-exports.deleteBlogEntry = function(id, callback) {
-  //get current rev of dataset
-  db.get(id, null, function(err, loadedEntry)
-  {
-      if (err)
-      {
-          callback(err);
-          return;
-      }
-    //delete only with correct rev
-    db.destroy(id,loadedEntry._rev, function(err)
+exports.deleteBlogEntry = function(id, callback)
+{
+    //get current rev of dataset
+    db.get(id, null, function(err, loadedEntry)
     {
         if (err)
         {
             callback(err);
             return;
         }
+        //delete only with correct rev
+        db.destroy(id, loadedEntry._rev, function(err)
+        {
+            if (err)
+            {
+                callback(err);
+                return;
+            }
 
-        callback(null);
+            callback(null);
+        });
     });
-  });
 };
 
 exports.updateBlogEntry = function(id, entry, callback)
@@ -80,12 +87,14 @@ exports.updateBlogEntry = function(id, entry, callback)
         //TODO handle revision conflicts?
         db.insert(loadedEntry, id, function(err)
         {
-            if (err){
+            if (err)
+            {
                 callback(err);
-              }
-            else {
+            }
+            else
+            {
                 callback(null, entry);
-              }
+            }
         });
     });
 };
@@ -111,10 +120,12 @@ exports.getBlogEntry = function(id, callback)
 {
     db.get(id, function(err, body)
     {
-        if (err) {
+        if (err)
+        {
             callback(err);
         }
-        else {
+        else
+        {
             callback(body);
         }
     });

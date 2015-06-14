@@ -1,21 +1,17 @@
-(function()
-{
+(function() {
     'use strict';
 
     angular.module('navigation', []).
     directive('navLink', navLink);
 
-    function navLink($location)
-    {
+    function navLink($location) {
         var activeCssClass = 'md-accent';
         return {
             restrict: 'A',
-            link: function(scope, element)
-            {
+            link: function(scope, element) {
                 var path = element.attr('ng-href');
                 scope.location = $location;
-                scope.$watch('location.path()', function(newPath)
-                {
+                scope.$watch('location.path()', function(newPath) {
                     if (path === newPath)
                         element.addClass(activeCssClass);
                     else
