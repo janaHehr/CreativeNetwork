@@ -25,7 +25,7 @@ describe('knowledgeBlog', function() {
             $filter: _$filter_
         });
     }));
-    ddescribe('openEntry', function() {
+    describe('openEntry', function() {
         it('should change location to blog/:id', function() {
             spyOn($location, 'path');
             $scope.openEntry({
