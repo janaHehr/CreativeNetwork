@@ -219,7 +219,7 @@ gulp.task('karma', function(done)
 {
     plugins.karma.server.start(
     {
-        configFile: __dirname + 'karma.conf.js',
+        configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
 })
@@ -271,7 +271,7 @@ gulp.task('build', function(done)
 // build (for dev)
 gulp.task('build:dev', function(done)
 {
-    plugins.runSequence('clean', ['copy', 'scripts:dev', 'less:dev', 'lint'], 'copy:server', 'copy:package.json', 'index:dev', done);
+    plugins.runSequence('karma', 'clean', ['copy', 'scripts:dev', 'less:dev', 'lint'], 'copy:server', 'copy:package.json', 'index:dev', done);
 });
 
 // deploy task: run tests, afterwards build
