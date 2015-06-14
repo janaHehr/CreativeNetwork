@@ -1,10 +1,11 @@
 <!-- TODO: move inline styles to correct scss/less/css file -->
+<md-content flex layout="column" style="height: 100vh;">
 
 <md-button style="position: fixed; top: 10px; left: -2px; z-index: 100;" class="md-icon-button" aria-label="Aktionen" ng-click="openSidebar()">
-    <i class="icon ion-navicon-round" style="color: white; font-size: 2em;"></i>
+    <i class="icon ion-navicon-round headerBurgerMenu"></i>
 </md-button>
 <form flex layout="column" layout-padding ng-submit="save()" style="width: 100%; overflow: hidden;" name="form">
-    <md-input-container>
+    <md-input-container style="padding-left:100px;">
         <label>Titel</label>
         <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
     </md-input-container>
@@ -16,7 +17,7 @@
         </div>
         <div>
             <section ng-class="{'entry-preview-content':model.isEditMode}" id="preview-container">
-                <div ng-if="article.content" sd-model-to-html="article.content" id="markdown-container" />
+                <div ng-if="article.content" style="width:60%;margin:auto" sd-model-to-html="article.content" id="markdown-container" />
             </section>
         </div>
     </md-content>
@@ -25,7 +26,7 @@
 
 <md-sidenav layout class="md-sidenav-left md-whiteframe-z2" md-component-id="sidebar">
     <md-content flex ng-controller="SidebarController" layout="column" layout-padding>
-        <md-list>
+        <md-list style="padding-top:40px">
             <!--TODO:selektiertes Element hervorheben und Liste geöffnet lassen-->
             <md-list-item class="md-2-line" ng-repeat="entry in entries" ng-click="openEntry(entry)">
                 <div class="md-list-item-text">
@@ -44,3 +45,4 @@ toggling-method="hover">
     <button mfb-button icon="ion-star" label="add to favourites" ng-disabled="true" mfb-button-close ng-click=""></button>
     <button mfb-button icon="ion-trash-a" label="delete" ng-click="delete()" mfb-button-close></button>
 </nav>
+</md-content>

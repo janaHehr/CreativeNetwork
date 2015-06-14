@@ -1,4 +1,3 @@
-<md-content layout="column" layout-align="center center">
   <md-toolbar>
      <div class="md-toolbar-tools" layout="row">
        <div flex="50" layout-align="start center">
@@ -21,46 +20,65 @@
          </div>
      </div>
  </md-toolbar>
-  <md-content layout-padding layout="column" layout-align="center center" style="width:100%;">
-    <md-content layout="row"  layout-padding style="width:70%;height:600px">
-      <md-button class="md-icon-button" aria-label="Empty your brain into our database.">
+ <div style="display: block;
+  margin-left: auto;
+  margin-right: auto;width:65%">
+   <div style="display:inline-block;width:100%;padding-top:10px;">
+     <md-button class="md-icon-button" aria-label="Empty your brain into our database." style="float:left">
          <md-tooltip>
            Empty your brain and share your knowledge with the world.
          </md-tooltip>
-         <i class="icon ion-ios-lightbulb inputIcon"></i>
+         <i class="icon ion-ios-lightbulb inputIconList"></i>
          </md-icon>
        </md-button>
-       <md-input-container>
+       <md-input-container style="float:left;">
         <label>I want to share with the world...</label>
         <input ng-model="bindmelater2" class="inputText" style="font-size:1em;" type="text">
       </md-input-container>
-    </md-content>
-    <md-list style="width:70%">
-      <md-list-item ng-repeat="entry in entries track by entry._id">
-        <md-content ng-click="openEntry(entry)"  style="cursor:hand;background-color:gray;min-height:50px;
-        margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc;width:100%">
-           <div style="background-color:gray;overflow:hidden;height:200px;">
-              <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image"/>
-            </div>
-            <h2 class="md-title">{{entry.title}}</h2>
-             <div sd-model-to-html="getContent(entry.content)"></div>
-        </md-content>
-      </md-list-item>
-    </md-list>
-    <!-- <md-content layout-padding layout="column">
-     <md-content layout layout-align="space-around center" ng-repeat="entry in entries track by entry._id">
-         <md-content ng-click="openEntry(entry)" flex="70" layout="column" style="cursor:hand;background-color:gray;min-height:50px;
-         margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc">
-            <div style="background-color:gray;overflow:hidden;height:200px;">
-               <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image"/>
-             </div>
-             <h2 class="md-title">{{entry.title}}</h2>
-             <div sd-model-to-html="getContent(entry.content)"></div>
-         </md-content>
-     </md-content>
-     <md-content> -->
-  </md-content>
-</md-content>
+
+   </div>
+   <div ng-repeat="entry in entries track by entry._id" ng-click="openEntry(entry)"  style="cursor:hand;background-color:gray;min-height:50px;
+        margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc;">
+     <div style="background-color:gray;overflow:hidden;height:200px;">
+        <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image"/>
+      </div>
+      <h2 class="md-title">{{entry.title}}</h2>
+      <h5 style="color:#ccc">Author: Jana (3 days ago)</h5>
+      <div sd-model-to-html="getContent(entry.content)"></div>
+   </div>
+ </div>
+<nav mfb-menu position="br" effect="slidein-spring" label="Create new post" ng-click="createBlogEntry()"
+     active-icon="ion-plus-round" resting-icon="ion-navicon-round"
+     toggling-method="hover">
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start start">
     <div layout="row" layout-wrap style="margin:5px">
@@ -95,7 +113,3 @@
      </div>
    </md-card>
    <br/> -->
-<nav mfb-menu position="br" effect="slidein-spring" label="Create new post" ng-click="createBlogEntry()"
-     active-icon="ion-plus-round" resting-icon="ion-navicon-round"
-     toggling-method="hover">
-</nav>
