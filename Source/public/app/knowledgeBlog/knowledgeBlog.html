@@ -1,16 +1,67 @@
-<md-content layout-padding>
-   <md-content layout layout-align="space-around center" ng-repeat="entry in entries track by entry._id">
-       <md-content flex="50" layout="column" style="background-color:gray;min-height:50px;margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc">
-          <div style="background-color:gray;overflow:hidden;height:200px;">
-             <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image">
-           </div>
-           <h2 class="md-title">{{entry.title}}</h2>
-           <span>
-               {{entry.content}}
-           </span>
-       </md-content>
-   </md-content>
+<md-content layout="column" layout-align="center center">
+  <md-toolbar>
+     <div class="md-toolbar-tools" layout="row">
+       <div flex="50" layout-align="start center">
+         <md-button class="md-icon-button" aria-label="Go to start" ng-href="/">
+         <img src="content/logo.png" alt="" style="height: 50px;"/>
+       </md-button>
+       </div>
+         <div flex="50" layout-align="end center" layout="row">
+           <md-button class="md-icon-button" aria-label="Search" ng-href="/blog">
+              <md-tooltip>
+                Yes, that's seems to be magic, but sometimes i can find things for you.
+              </md-tooltip>
+              <i class="icon ion-wand inputIcon"></i>
+              </md-icon>
+            </md-button>
+           <md-input-container flex="40">
+            <label>Machine, please find for me...</label>
+            <input ng-model="bindmelater" class="inputText" type="text">
+          </md-input-container>
+         </div>
+     </div>
+ </md-toolbar>
+  <md-content layout-padding layout="column" layout-align="center center" style="width:100%;">
+    <md-content layout="row"  layout-padding style="width:70%;height:600px">
+      <md-button class="md-icon-button" aria-label="Empty your brain into our database.">
+         <md-tooltip>
+           Empty your brain and share your knowledge with the world.
+         </md-tooltip>
+         <i class="icon ion-ios-lightbulb inputIcon"></i>
+         </md-icon>
+       </md-button>
+       <md-input-container>
+        <label>I want to share with the world...</label>
+        <input ng-model="bindmelater2" class="inputText" style="font-size:1em;" type="text">
+      </md-input-container>
+    </md-content>
+    <md-list style="width:70%">
+      <md-list-item ng-repeat="entry in entries track by entry._id">
+        <md-content ng-click="openEntry(entry)"  style="cursor:hand;background-color:gray;min-height:50px;
+        margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc;width:100%">
+           <div style="background-color:gray;overflow:hidden;height:200px;">
+              <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image"/>
+            </div>
+            <h2 class="md-title">{{entry.title}}</h2>
+             <div sd-model-to-html="getContent(entry.content)"></div>
+        </md-content>
+      </md-list-item>
+    </md-list>
+    <!-- <md-content layout-padding layout="column">
+     <md-content layout layout-align="space-around center" ng-repeat="entry in entries track by entry._id">
+         <md-content ng-click="openEntry(entry)" flex="70" layout="column" style="cursor:hand;background-color:gray;min-height:50px;
+         margin:5px;padding:5px;background-color:#fff; border:1px solid;border-color:#ccc">
+            <div style="background-color:gray;overflow:hidden;height:200px;">
+               <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image"/>
+             </div>
+             <h2 class="md-title">{{entry.title}}</h2>
+             <div sd-model-to-html="getContent(entry.content)"></div>
+         </md-content>
+     </md-content>
+     <md-content> -->
+  </md-content>
 </md-content>
+
   <!-- <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start start">
     <div layout="row" layout-wrap style="margin:5px">
     <div flex="66">
@@ -44,16 +95,6 @@
      </div>
    </md-card>
    <br/> -->
-   <md-content>
-
-<!-- <md-grid-list style="margin:20px" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
-    <md-grid-tile ng-click="openEntry(entry)" ng-repeat="entry in entries track by entry._id" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="color: #fff; background: rgb(121,85,72);">
-        <span layout-padding>{{entry.title}}</span>
-        <md-grid-tile-footer>
-            <h3>{{entry.author}}</h3>
-        </md-grid-tile-footer>
-    </md-grid-tile>
-</md-grid-list> -->
 <nav mfb-menu position="br" effect="slidein-spring" label="Create new post" ng-click="createBlogEntry()"
      active-icon="ion-plus-round" resting-icon="ion-navicon-round"
      toggling-method="hover">

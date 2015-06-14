@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('knowledgeBlog', ['knowledgeBlog.article'])
+    angular.module('knowledgeBlog', ['knowledgeBlog.article', 'cutString'])
         .config(defineRoutes)
         .factory('knowledgeBlogService', knowledgeBlogService)
         .controller('KnowledgeBlogController', KnowledgeBlogController);
@@ -44,7 +44,7 @@
         return result;
     }
 
-    function KnowledgeBlogController ($scope, knowledgeBlogService, $location) {
+    function KnowledgeBlogController ($scope, knowledgeBlogService, $location, $filter) {
         $scope.entries = [];
         $scope.selectedEntry = {};
 
@@ -63,5 +63,10 @@
         {
             $scope.entries = entries;
         });
+
+        $scope.getContent = function(content){
+          //return content;
+          return $filter('cutString')(content,true, 400,'...');
+        };
     }
 })();

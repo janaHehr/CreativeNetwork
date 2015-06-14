@@ -4,6 +4,7 @@
 var nano = require('nano')('http://192.168.59.103:5984');
 var db;
 var dbName = 'knowledgebase';
+
 nano.db.get(dbName,function(err,body){
   if(err){
     console.log('DB does not exist: create new');
@@ -18,12 +19,10 @@ nano.db.get(dbName,function(err,body){
     });
   }
   else{
-    console.log('DB exists');
+    console.log('DB already exists. Perfect, time to start.');
     db = nano.use(dbName);
   }
 });
-
-
 
 exports.createBlogEntry = function(entry, callback)
 {
