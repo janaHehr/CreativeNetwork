@@ -1,15 +1,3 @@
-<style>
-    #blubb89 {
-        cursor: hand;
-        background-color: gray;
-        min-height: 50px;
-        margin: 5px;
-        padding: 5px;
-        background-color: #fff;
-        border: 1px solid;
-        border-color: #ccc;
-    }
-</style>
 <md-toolbar>
     <div class="md-toolbar-tools" layout="row">
         <div flex="50" layout-align="start center">
@@ -33,7 +21,6 @@
     </div>
 </md-toolbar>
 
-
 <md-content layout="row" layout-align="center start">
     <md-content flex="65" layout="column" layout-align="center">
         <md-content layout="row" layout-padding>
@@ -49,13 +36,26 @@
                 <input ng-model="bindmelater2" class="inputText" style="font-size:1em;" type="text">
             </md-input-container>
         </md-content>
-        <md-content ng-repeat="entry in entries track by entry._id" ng-click="openEntry(entry)" id="blubb89">
-            <div style="background-color:gray;overflow:hidden;height:200px;">
-                <img ng-src="http://meshfields.de/content/images/2014/12/yeoman-angular.png" style="width:100%;height:auto" class="md-card-image" />
+        <md-content ng-repeat="entry in entries track by entry._id" ng-click="openEntry(entry)" id="entry">
+          <md-content layout="row">
+                <img ng-src="https://d262ilb51hltx0.cloudfront.net/fit/c/36/36/1*S74e0h9iVobNegOC1VOXHQ.png" />
+                <md-content layout="column" layout-align="start start" layout-padding>
+                  <a href="">Angular, Tag2</a>
+                  <md-content layout="row">
+                    <span class="cite">Jana Hehr</span>
+                    <span class="cite" style="padding-left:10px">3 days ago</span>
+                  </md-content>
+                </md-content>
+          </md-content>
+            <div style="overflow:hidden;height:180px;">
+                <img ng-src="http://bootstrap-live-customizer.com/themes/amelia.png" style="width:100%;height:auto" class="md-card-image" />
             </div>
-            <h2 class="md-title">{{entry.title}}</h2>
-            <h5 style="color:#ccc">Author: Jana (3 days ago)</h5>
+            <h2 id="entryTitle">{{entry.title}}</h2>
             <div sd-model-to-html="getContent(entry.content)"></div>
+            <md-content layout="row" layout-align="center center">
+              <a href="" ng-click="openEntry(entry)">Continue reading</a>
+              <span id="readLength">8 min read</span>
+            </md-content>
         </md-content>
     </md-content>
 </md-content>
@@ -90,17 +90,3 @@
    {{entry.content}}
  </span>
   </div> -->
-
-<!-- <md-card style="width:50%;" ng-repeat="entry in entries track by entry._id">
-     <img ng-src="https://material.angularjs.org/latest/img/washedout.png" class="md-card-image" alt="Washed Out">
-     <md-card-content>
-       <h2 class="md-title">{{entry.title}}</h2>
-       <p>
-        {{entry.content}}
-       </p>
-     </md-card-content>
-     <div class="md-actions" layout="row" layout-align="end center">
-       <md-button ng-click="openEntry(entry)">Read all</md-button>
-     </div>
-   </md-card>
-   <br/> -->
