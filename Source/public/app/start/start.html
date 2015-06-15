@@ -1,37 +1,39 @@
-<md-content layout="column" class="startContent">
-  <div layout="row" layout-align="start center" layout-padding style="z-index:100;">
+<md-content flex layout="column">
+  <md-content layout="row" layout-align="start center" layout-padding class="startContent">
     <img src="content/logo.png" alt="" class="logo"/>
     <h2 class="md-display-1 productHeader">Creative Network</h2>
     <sub class="productVersion">alpha beta gamma</sub>
-  </div>
-  <div style="margin-top:-15px;" style="position:relative">
-    <img src="content/header.png" alt="" style="width:100%; height:auto; min-width:500px;"/>
-    <span class="citeHeader" style="position:absolute;top:150px;left:15px;">Creativity requires the courage to let go of certainties.</span>
-    <span class="citeSub" style="position:absolute;top:210px;left:15px;">-Erich Fromm-</span>
-  </div>
-  <md-content layout="row" layout-align="center center" layout-padding class="startContent" style="height:150px">
-    <md-button class="md-icon-button" aria-label="Search" ng-href="/blog">
-       <md-tooltip>
-         Yes, that's seems to be magic, but sometimes i can find things for you.
-       </md-tooltip>
-       <i class="icon ion-wand inputIcon"></i>
-       </md-icon>
-     </md-button>
-    <md-input-container flex="40">
-     <label>Machine, please find for me...</label>
-     <input ng-model="bindmelater" class="inputText" type="text">
-   </md-input-container>
-   <label style="padding:25px 60px 0 40px;" class="inputSeperator">OR</label>
-   <md-button class="md-icon-button" aria-label="Empty your brain into our database.">
-      <md-tooltip>
-        Empty your brain and share your knowledge with the world.
-      </md-tooltip>
-      <i class="icon ion-ios-lightbulb inputIcon"></i>
-      </md-icon>
-    </md-button>
-   <md-input-container flex="40">
-    <label>I want to share with the world...</label>
-    <input ng-model="bindmelater2" class="inputText" type="text">
-  </md-input-container>
+  </md-content>
+  <md-content>
+    <div style="overflow:hidden;">
+      <img src="content/header.png" alt="" style="width:100%; height:auto;"/>
+      <span class="citeHeader" style="position:absolute;top:20px;left:15px;">Creativity requires the courage to let go of certainties.</span>
+      <span class="citeSub" style="position:absolute;top:70px;left:15px;">-Erich Fromm-</span>
+    </div>
+  </md-content>
+   <md-content layout="row" layout-align="center center" layout-padding class="startContent">
+      <md-button class="md-icon-button" aria-label="Search" ng-href="/blog">
+         <md-tooltip>
+           Yes, that's seems to be magic, but sometimes i can find things for you.
+         </md-tooltip>
+         <i class="icon ion-wand inputIcon"></i>
+         </md-icon>
+       </md-button>
+      <md-input-container flex="40">
+       <label>Machine, please find for me...</label>
+       <input ng-model="bindmelater" class="inputText" type="text">
+     </md-input-container>
+     <label style="padding:25px 60px 0 40px;" class="inputSeperator">OR</label>
+     <md-button class="md-icon-button" aria-label="Empty your brain into our database.">
+        <md-tooltip>
+          Empty your brain and share your knowledge with the world.
+        </md-tooltip>
+        <i class="icon ion-ios-lightbulb inputIcon"></i>
+        </md-icon>
+      </md-button>
+     <md-input-container flex="40">
+      <label>I want to share with the world...</label>
+      <input ng-model="bindmelater2" class="inputText" type="text">
+      </md-input-container>
   </md-content>
 </md-content>
