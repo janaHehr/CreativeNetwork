@@ -25,8 +25,9 @@ describe('knowledgeBlog', function() {
             $filter: _$filter_
         });
     }));
+
     describe('openEntry', function() {
-        it('should change location to blog/:id', function() {
+        it('should change location to /blog/:id', function() {
             spyOn($location, 'path');
             $scope.openEntry({
                 _id: 42
@@ -51,4 +52,42 @@ describe('knowledgeBlog', function() {
             expect($location.path).not.toHaveBeenCalled();
         });
     });
+
+    describe('createBlogEntry', function() {
+        it('should change location to /blog/new', function() {
+            spyOn($location, 'path');
+            $scope.createBlogEntry();
+            expect($location.path).toHaveBeenCalledWith('/blog/new');
+        });
+    });
+
+    describe('getContent', function() {
+        it('should not change the length if it is smaller than 400 chars', function() {
+
+            var content = '';
+
+            for (var i = 0; i < 400; i++) {
+                content += 'f';
+            }
+
+            var result = $scope.getContent(content);
+            expect(result.length).toBe(content.length);
+        });
+
+        it('should cut the content to 400 chars and append "..." if it is larger than 400 chars', function() {
+
+            var content = '';
+
+            for (var i = 0; i < 401; i++) {
+                content += 'f';
+            }
+
+            var result = $scope.getContent(content);
+            expect(result.length).toBe(403);
+            expect(result[400]).toBe('.');
+            expect(result[401]).toBe('.');
+            expect(result[402]).toBe('.');
+        });
+    });
+
 });
