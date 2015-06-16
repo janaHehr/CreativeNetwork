@@ -26,6 +26,16 @@ describe('knowledgeBlog', function() {
         });
     }));
 
+    describe('$scope', function() {
+        it('should have entries', function() {
+            expect($scope.entries).toBeDefined();
+        });
+
+        it('should have selectedEntry', function() {
+            expect($scope.selectedEntry).toBeDefined();
+        });
+    });
+
     describe('openEntry', function() {
         it('should change location to /blog/:id', function() {
             spyOn($location, 'path');
