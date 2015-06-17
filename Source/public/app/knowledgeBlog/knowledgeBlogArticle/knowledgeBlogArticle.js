@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('knowledgeBlog.article', ['showdown'])
+	angular.module('knowledgeBlog.article', ['showdown','tagService'])
 		.config(defineRoutes)
 		.controller('KnowledgeBlogArticleController', KnowledgeBlogArticleController)
 
@@ -23,7 +23,7 @@
 			});
 	}
 
-	function KnowledgeBlogArticleController($scope, knowledgeBlogService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil, $log) {
+	function KnowledgeBlogArticleController($scope, knowledgeBlogService, tagService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil, $log) {
 
 		function buildToggler(navID) {
 			var debounceFn = $mdUtil.debounce(function () {
@@ -33,7 +33,10 @@
 			return debounceFn;
 		}
 
+
+
 		function init() {
+
 			//open existing dataset
 			if($routeParams.id) {
 				knowledgeBlogService.getBlogEntry($routeParams.id).then(function (entry) {
@@ -78,6 +81,10 @@
 			},function(){
 				//TODO: Fehlerfall behandeln
 			});
+		};
+
+		$scope.getTags = function (searchTerm) {
+			return tagService.getTags(searchTerm);
 		};
 
 		$scope.model = {

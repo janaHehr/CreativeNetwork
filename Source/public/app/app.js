@@ -75,7 +75,7 @@
       $mdThemingProvider.theme('default')
            .primaryPalette('primary')
            .accentPalette('accent')
-           .backgroundPalette('background')
+           //.backgroundPalette('background')
           //  .dark();
           ;
   }

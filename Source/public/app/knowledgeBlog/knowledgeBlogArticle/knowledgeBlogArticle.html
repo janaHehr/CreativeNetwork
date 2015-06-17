@@ -5,13 +5,30 @@
     <i class="icon ion-navicon-round headerBurgerMenu"></i>
 </md-button>
 <form flex layout="column" layout-padding ng-submit="save()" style="width: 100%; overflow: hidden;" name="form">
-    <md-input-container style="padding-left:100px;">
-        <label>Titel</label>
-        <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
-    </md-input-container>
-    <!-- <md-input-container>
-        <input ng-model="article.tags">
-    </md-input-container> -->
+   <md-content style="padding-left:100px;">
+     <md-input-container>
+         <label>Titel</label>
+         <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
+     </md-input-container>
+     <md-chips ng-model="article.tags" md-autocomplete-snap md-require-match>
+        <md-autocomplete
+            ng-click="model.isEditMode=true"
+            md-selected-item="model.selectedItem"
+            md-search-text="model.searchTerm"
+            md-items="item in getTags(model.searchTerm)"
+            md-min-length="2"
+            md-item-text="item.name"
+            placeholder="add some related tags...">
+          <span md-highlight-text="model.searchTerm">{{item.name}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+          <span>
+            <strong>{{$chip.name}}</strong>
+          </span>
+        </md-chip-template>
+      </md-chips>
+   </md-content>
+
     <md-content flex style="position: relative;">
         <div id="edit" ng-class="{'halfWidth':model.isEditMode}" ui-codemirror="model.editorOptions" ng-model="article.content" sync-scroll preview-container=" 'preview-container' " markdown-container=" 'markdown-container' ">
         </div>

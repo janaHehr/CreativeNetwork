@@ -40,6 +40,7 @@ exports.createBlogEntry = function(entry, callback)
             return;
         }
         entry._id = body.id;
+        entry.tags = [];
         callback(null, entry);
     });
 };
@@ -110,6 +111,9 @@ exports.getAllBlogEntries = function(callback)
         {
             callback(body.rows.map(function(row)
             {
+                if(!row.doc.tags){
+                  row.doc.tags = [];
+                }
                 return row.doc;
             }));
         }
@@ -118,7 +122,7 @@ exports.getAllBlogEntries = function(callback)
 
 exports.getBlogEntry = function(id, callback)
 {
-    db.get(id, function(err, body)
+    db.get(id, function(err, entry)
     {
         if (err)
         {
@@ -126,7 +130,10 @@ exports.getBlogEntry = function(id, callback)
         }
         else
         {
-            callback(body);
+            if(!entry.tags){
+              entry.tags = [];
+            }
+            callback(entry);
         }
     });
 };
