@@ -9,7 +9,9 @@
       result.getTags = function(searchterm) {
           return $http.get('https://api.stackexchange.com/2.2/tags?pagesize=20&order=desc&sort=popular&inname='+ searchterm +'&site=stackoverflow')
               .then(function(body) {
-                  return body.data.items;
+                  return _.map(body.data.items,function (item) {
+                    return item.name;
+                  });
               });
       };
 

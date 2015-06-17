@@ -39,8 +39,9 @@
         <md-content ng-repeat="entry in entries track by entry._id" ng-click="openEntry(entry)" id="entry">
           <md-content layout="row">
                 <img ng-src="https://d262ilb51hltx0.cloudfront.net/fit/c/36/36/1*S74e0h9iVobNegOC1VOXHQ.png" />
-                <md-content layout="column" layout-align="start start" layout-padding>
-                  <a href="">Angular, Tag2</a>
+                <md-content layout="column" layout-align="start start" layout-padding class="tags">
+                  <md-chips ng-model="entry.tags" readonly="true">
+                  </md-chips>
                   <md-content layout="row">
                     <span class="cite">Jana Hehr</span>
                     <span class="cite" style="padding-left:10px">3 days ago</span>

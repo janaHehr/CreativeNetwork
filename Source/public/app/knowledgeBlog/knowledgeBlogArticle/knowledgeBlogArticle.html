@@ -10,20 +10,20 @@
          <label>Titel</label>
          <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
      </md-input-container>
-     <md-chips ng-model="article.tags" md-autocomplete-snap md-require-match>
+     <md-chips ng-model="article.tags" md-autocomplete-snap md-require-match ng-click="model.isEditMode=true">
         <md-autocomplete
-            ng-click="model.isEditMode=true"
+            ng-show="model.isEditMode"
             md-selected-item="model.selectedItem"
             md-search-text="model.searchTerm"
             md-items="item in getTags(model.searchTerm)"
             md-min-length="2"
-            md-item-text="item.name"
+            md-item-text="item"
             placeholder="add some related tags...">
-          <span md-highlight-text="model.searchTerm">{{item.name}}</span>
+          <span md-highlight-text="model.searchTerm">{{item}}</span>
         </md-autocomplete>
         <md-chip-template>
           <span>
-            <strong>{{$chip.name}}</strong>
+            <strong>{{$chip}}</strong>
           </span>
         </md-chip-template>
       </md-chips>
