@@ -163,6 +163,13 @@ gulp.task('copy:content', function()
         .pipe(gulp.dest(publicDistPath + 'content'));
 });
 
+// copy locales to dist
+gulp.task('copy:locales', function()
+{
+    return gulp.src(publicSrcDir + 'locales/**/*.*')
+        .pipe(gulp.dest(publicDistPath + 'locales'));
+});
+
 // copy fonts from all bower_components to dist
 gulp.task('copy:fonts', function()
 {
@@ -183,7 +190,7 @@ gulp.task('copy:package.json', function()
 });
 
 // copy static files to dist
-gulp.task('copy', ['copy:content', 'copy:fonts']);
+gulp.task('copy', ['copy:content', 'copy:fonts', 'copy:locales']);
 
 // copy index.html and inject combines js dist file
 gulp.task('index', function()
@@ -293,7 +300,7 @@ gulp.task('dev', function(done)
 
 
 // start all watchers
-gulp.task('watch:all', ['watch:less', 'watch:js', 'watch:vendor', 'watch:templates', 'watch:index']);
+gulp.task('watch:all', ['watch:less', 'watch:js', 'watch:vendor', 'watch:templates', 'watch:index', 'watch:locales']);
 
 // start all watchers
 // gulp.task('watch:all:notest', ['watch:less', 'watch:js:notest', 'watch:vendor', 'watch:templates', 'watch:index']);
@@ -331,4 +338,9 @@ gulp.task('watch:templates', function()
 gulp.task('watch:index', function()
 {
     gulp.watch(publicSrcDir + 'index.html', ['index:dev']);
+});
+
+gulp.task('watch:locales', function()
+{
+    gulp.watch(publicSrcDir + 'locales/**/*.json', ['copy:locales']);
 });
