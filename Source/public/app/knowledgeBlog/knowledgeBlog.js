@@ -33,7 +33,7 @@
         });
 
         $scope.getContent = function(content) {
-            return $filter('cutString')(content, true, 400, '...');
+           return $filter('cutString')(content, true, 400, '...');
         };
     }
 })();

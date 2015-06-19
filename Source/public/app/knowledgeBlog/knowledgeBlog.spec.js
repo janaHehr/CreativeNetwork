@@ -19,10 +19,9 @@ describe('knowledgeBlog', function() {
         knowledgeBlogService = _knowledgeBlogService_;
         $location = _$location_;
         $scope = _$rootScope_.$new();
-        filterSpy = jasmine.createSpy();
-        $filter = jasmine.createSpy().andCallFake(function () {
-          return filterSpy;
-        });
+
+        filterSpy=jasmine.createSpy();
+        $filter = jasmine.createSpy('filterSpy').and.returnValue(filterSpy);
 
         _$controller_('KnowledgeBlogController', {
             $scope: $scope,
