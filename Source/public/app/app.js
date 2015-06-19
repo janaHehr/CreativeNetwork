@@ -22,6 +22,7 @@
           suffix: '.json'
       });
       $translateProvider.preferredLanguage('en-US');
+      $translateProvider.fallbackLanguage('en-US');
 
       $locationProvider.html5Mode(true);
 
