@@ -5,6 +5,23 @@
     "CITEAUTOR":"-Erich Fromm-",
     "ACTIONSEPERATOR":"OR"
   },
+
+  "BLOG":
+  {
+    "POST":
+    {
+      "CREATE":"Create new post"
+    },
+    "ENTRY":
+    {
+      "CREATE":
+      {
+        "TOOLTIP":"Empty your brain and share your knowledge with the world.",
+        "PLACEHOLDER":"I want to share with the world..."
+      }
+    }
+  },
+
   "GENERAL":
   {
     "APPNAME":"Creative Network",
@@ -13,10 +30,7 @@
       "TOOLTIP":"Yes, that's seems to be magic, but sometimes i can find things for you.",
       "PLACEHOLDER":"Machine, please find for me..."
     },
-    "CREATEENTRY":
-    {
-      "TOOLTIP":"Empty your brain and share your knowledge with the world.",
-      "PLACEHOLDER":"I want to share with the world..."
-    }
+    "CONTINUEREADING":"Continue reading"
+
   }
 }
