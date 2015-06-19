@@ -1,20 +1,20 @@
 <md-toolbar>
     <div class="md-toolbar-tools" layout="row">
         <div flex="50" layout-align="start center">
-            <md-button class="md-icon-button" aria-label="Go to start" ng-href="/">
+            <md-button class="md-icon-button" ng-href="/">
                 <img src="content/logo.png" alt="" style="height: 50px;" />
             </md-button>
         </div>
         <div flex="50" layout-align="end center" layout="row">
-            <md-button class="md-icon-button" aria-label="Search" ng-href="/blog">
+            <md-button class="md-icon-button" ng-href="/blog">
                 <md-tooltip>
-                    Yes, that's seems to be magic, but sometimes i can find things for you.
+                  {{'GENERAL.SEARCH.TOOLTIP'|translate}}
                 </md-tooltip>
                 <i class="icon ion-wand inputIcon"></i>
                 </md-icon>
             </md-button>
             <md-input-container flex="40">
-                <label>Machine, please find for me...</label>
+              <label>{{'GENERAL.SEARCH.PLACEHOLDER'|translate}}</label>
                 <input ng-model="bindmelater" class="inputText" type="text">
             </md-input-container>
         </div>
@@ -54,11 +54,12 @@
             <h2 id="entryTitle">{{entry.title}}</h2>
             <div sd-model-to-html="getContent(entry.content)"></div>
             <md-content layout="row" layout-align="center center">
-              <a href="" ng-click="openEntry(entry)">Continue reading</a>
+              <a href="" ng-click="openEntry(entry)">{{'GENERAL.CONTINUEREADING'|translate}}</a>
               <span id="readLength">8 min read</span>
             </md-content>
         </md-content>
     </md-content>
 </md-content>
-<nav mfb-menu position="br" effect="slidein-spring" label="Create new post" ng-click="createBlogEntry()" active-icon="ion-plus-round" resting-icon="ion-navicon-round" toggling-method="hover">
+<nav mfb-menu position="br" effect="slidein-spring" label="{{'BLOG.ENTRY.CREATE.NEW'|translate}}"
+ng-click="createBlogEntry()" active-icon="ion-plus-round" resting-icon="ion-navicon-round" toggling-method="hover">
 </nav>
