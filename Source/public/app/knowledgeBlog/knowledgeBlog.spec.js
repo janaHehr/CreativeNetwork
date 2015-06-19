@@ -7,18 +7,22 @@ describe('knowledgeBlog', function() {
     var $location;
     var $scope;
     var $filter;
+    var filterSpy;
 
     beforeEach(function() {
         angular.module('showdown', []);
-        angular.mock.module('ngRoute', 'showdown', 'knowledgeBlog.article', 'cutString', 'knowledgeBlogService');
+        angular.mock.module('ngRoute', 'showdown', 'knowledgeBlog.article', 'knowledgeBlogService');
         module('knowledgeBlog');
     });
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _knowledgeBlogService_, _$location_, _$filter_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _knowledgeBlogService_, _$location_) {
         knowledgeBlogService = _knowledgeBlogService_;
         $location = _$location_;
         $scope = _$rootScope_.$new();
-        $filter = _$filter_;
+        filterSpy = jasmine.createSpy();
+        $filter = jasmine.createSpy().andCallFake(function () {
+          return filterSpy;
+        });
 
         _$controller_('KnowledgeBlogController', {
             $scope: $scope,
@@ -74,14 +78,10 @@ describe('knowledgeBlog', function() {
     });
 
     describe('getContent', function() {
-        xit('should call the cutString filter', function() {
-
-            // TODO: how to spy on a filter??
-            spyOn($filter, '??');
-
+        it('should call the cutString filter', function() {
+            $scope.getContent('short Testcontent (size does not matter)');
             expect($filter).toHaveBeenCalledWith('cutString');
-            // expect($filter).toHaveBeenCalledWith(content, true, 400, '...');
+            expect(filterSpy).toHaveBeenCalled();
         });
     });
-
 });
