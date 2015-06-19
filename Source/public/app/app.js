@@ -9,12 +9,21 @@
           'ui.codemirror',
           'comparex.syncScroll',
            'ngMaterial',
-           'ng-mfb'
+           'ng-mfb',
+           'pascalprecht.translate'
       ])
       .config(init);
 
-  function init($routeProvider, $locationProvider, $showdownProvider, $mdThemingProvider)
+  function init($routeProvider, $locationProvider, $showdownProvider, $mdThemingProvider, $translateProvider)
   {
+     //i18n
+     $translateProvider.useStaticFilesLoader({
+          prefix:'locales/',
+          suffix: '.json'
+      });
+      $translateProvider.preferredLanguage('en-US');
+      $translateProvider.fallbackLanguage('en-US');
+
       $locationProvider.html5Mode(true);
 
       $routeProvider.otherwise(

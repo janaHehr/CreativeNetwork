@@ -1,0 +1,42 @@
+{
+  "START":
+  {
+    "CITE":"Creativity requires the courage to let go of certainties.",
+    "CITEAUTOR":"-Erich Fromm-",
+    "ACTIONSEPERATOR":"OR"
+  },
+
+  "BLOG":
+  {
+    "ENTRY":
+    {
+      "TITLE":"Title",
+      "TAGS":
+      {
+        "PLACEHOLDER":"add some related tags..."
+      },
+      "CREATE":
+      {
+        "NEW":"Create new post",
+        "TOOLTIP":"Empty your brain and share your knowledge with the world.",
+        "PLACEHOLDER":"I want to share with the world..."
+      }
+    }
+  },
+
+  "GENERAL":
+  {
+    "APPNAME":"Creative Network",
+    "SAVECHANGES":"save changes",
+    "EDIT":"edit",
+    "ADDFAVOURITE":"add to favourites",
+    "DELETE":"delete",
+    "SEARCH":
+    {
+      "TOOLTIP":"Yes, that's seems to be magic, but sometimes i can find things for you.",
+      "PLACEHOLDER":"Machine, please find for me..."
+    },
+    "CONTINUEREADING":"Continue reading"
+
+  }
+}
