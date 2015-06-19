@@ -1,13 +1,13 @@
 <!-- TODO: move inline styles to correct scss/less/css file -->
 <md-content flex layout="column" style="height: 100vh;">
 
-<md-button style="position: fixed; top: 10px; left: -2px; z-index: 100;" class="md-icon-button" aria-label="Aktionen" ng-click="openSidebar()">
+<md-button style="position: fixed; top: 10px; left: -2px; z-index: 100;" class="md-icon-button" ng-click="openSidebar()">
     <i class="icon ion-navicon-round headerBurgerMenu"></i>
 </md-button>
 <form flex layout="column" layout-padding ng-submit="save()" style="width: 100%; overflow: hidden;" name="form">
    <md-content style="padding-left:100px;">
      <md-input-container>
-         <label>Titel</label>
+         <label>{{'BLOG.ENTRY.TITLE'|translate}}</label>
          <input md-maxlength="100" required name="title" ng-model="article.title" ng-click="model.isEditMode=true">
      </md-input-container>
      <md-chips ng-model="article.tags" md-autocomplete-snap md-require-match ng-click="model.isEditMode=true">
@@ -18,7 +18,7 @@
             md-items="item in getTags(model.searchTerm)"
             md-min-length="2"
             md-item-text="item"
-            placeholder="add some related tags...">
+            placeholder="{{'BLOG.ENTRY.TAGS.PLACEHOLDER'|translate}}">
           <span md-highlight-text="model.searchTerm">{{item}}</span>
         </md-autocomplete>
         <md-chip-template>
@@ -57,9 +57,10 @@
     </md-content>
 </md-sidenav>
 
-<nav mfb-menu position="br" effect="slidein-spring" label="{{model.isEditMode?'save changes':'edit'}}" ng-click="model.isEditMode?save():model.isEditMode=true" active-icon="{{model.isEditMode?'ion-checkmark-round':'ion-edit'}}" resting-icon="ion-navicon-round"
+<nav mfb-menu position="br" effect="slidein-spring" label="{{model.isEditMode?'GENERAL.SAVECHANGES':'GENERAL.EDIT'|translate}}"
+ng-click="model.isEditMode?save():model.isEditMode=true" active-icon="{{model.isEditMode?'ion-checkmark-round':'ion-edit'}}" resting-icon="ion-navicon-round"
 toggling-method="hover">
-    <button mfb-button icon="ion-star" label="add to favourites" ng-disabled="true" mfb-button-close ng-click=""></button>
-    <button mfb-button icon="ion-trash-a" label="delete" ng-click="delete()" mfb-button-close></button>
+    <button mfb-button icon="ion-star" label="{{'GENERAL.ADDFAVOURITE'|translate}}" ng-disabled="true" mfb-button-close ng-click=""></button>
+    <button mfb-button icon="ion-trash-a" label="{{'GENERAL.DELETE'|translate}}" ng-click="delete()" mfb-button-close></button>
 </nav>
 </md-content>

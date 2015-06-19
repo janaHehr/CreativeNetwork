@@ -8,14 +8,16 @@
 
   "BLOG":
   {
-    "POST":
-    {
-      "CREATE":"Create new post"
-    },
     "ENTRY":
     {
+      "TITLE":"Title",
+      "TAGS":
+      {
+        "PLACEHOLDER":"add some related tags..."
+      },
       "CREATE":
       {
+        "NEW":"Create new post",
         "TOOLTIP":"Empty your brain and share your knowledge with the world.",
         "PLACEHOLDER":"I want to share with the world..."
       }
@@ -25,6 +27,10 @@
   "GENERAL":
   {
     "APPNAME":"Creative Network",
+    "SAVECHANGES":"save changes",
+    "EDIT":"edit",
+    "ADDFAVOURITE":"add to favourites",
+    "DELETE":"delete",
     "SEARCH":
     {
       "TOOLTIP":"Yes, that's seems to be magic, but sometimes i can find things for you.",
