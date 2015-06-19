@@ -1,8 +1,22 @@
 {
-  "START":{
-    "CITE":"Creativity requires the courage to let go of certainties."
+  "START":
+  {
+    "CITE":"Creativity requires the courage to let go of certainties.",
+    "CITEAUTOR":"-Erich Fromm-",
+    "ACTIONSEPERATOR":"OR"
   },
-  "GENERAL":{
-
+  "GENERAL":
+  {
+    "APPNAME":"Creative Network",
+    "SEARCH":
+    {
+      "TOOLTIP":"Yes, that's seems to be magic, but sometimes i can find things for you.",
+      "PLACEHOLDER":"Machine, please find for me..."
+    },
+    "CREATEENTRY":
+    {
+      "TOOLTIP":"Empty your brain and share your knowledge with the world.",
+      "PLACEHOLDER":"I want to share with the world..."
+    }
   }
 }

@@ -1,35 +1,35 @@
 <md-content class="startContent" layout-align="start center" layout-padding layout="row" style="overflow:hidden;min-height:130px;">
   <img alt="" class="logo" src="content/logo.png"/>
-  <h2 class="md-display-1 productHeader">Creative Network</h2>
+  <h2 class="md-display-1 productHeader">{{'GENERAL.APPNAME' | translate}}</h2>
   <sub class="productVersion">alpha beta gamma</sub>
 </md-content>
 <md-content style="overflow:hidden;min-width:900px;min-height:300px">
   <div>
     <img alt="" src="content/header.png" style="width:100%; height:auto;"/>
     <span class="citeHeader" style="position:absolute;top:20px;left:15px;">{{'START.CITE' | translate}}</span>
-    <span class="citeSub" style="position:absolute;top:70px;left:15px;">-Erich Fromm-</span>
+    <span class="citeSub" style="position:absolute;top:70px;left:15px;">{{'START.CITEAUTOR' | translate}}</span>
   </div>
 </md-content>
 <md-content class="startContent" flex layout-align="center center" layout-padding layout="row" style="overflow:hidden;">
-  <md-button aria-label="Search" class="md-icon-button" ng-href="/blog">
+  <md-button class="md-icon-button" ng-href="/blog">
     <md-tooltip>
-      Yes, that's seems to be magic, but sometimes i can find things for you.
+      {{'GENERAL.SEARCH.TOOLTIP'|translate}}
     </md-tooltip>
     <i class="icon ion-wand inputIcon"></i>
   </md-button>
 <md-input-container flex="40">
-  <label>Machine, please find for me...</label>
+  <label>{{'GENERAL.SEARCH.PLACEHOLDER'|translate}}</label>
   <input class="inputText" ng-model="bindmelater" type="text">
 </md-input-container>
-<label class="inputSeperator" style="padding:25px 60px 0 40px;">OR</label>
-<md-button aria-label="Empty your brain into our database." class="md-icon-button">
+<label class="inputSeperator" style="padding:25px 60px 0 40px;">{{'START.ACTIONSEPERATOR'|translate}}</label>
+<md-button class="md-icon-button">
   <md-tooltip>
-    Empty your brain and share your knowledge with the world.
+    {{'GENERAL.CREATEENTRY.TOOLTIP'|translate}}
   </md-tooltip>
   <i class="icon ion-ios-lightbulb inputIcon"></i>
 </md-button>
 <md-input-container flex="40">
-<label>I want to share with the world...</label>
+<label>{{'GENERAL.CREATEENTRY.PLACEHOLDER'|translate}}</label>
 <input class="inputText" ng-model="bindmelater2" type="text">
 </md-input-container>
 </md-content>
