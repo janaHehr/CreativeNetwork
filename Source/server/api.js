@@ -22,9 +22,14 @@ exports.getAllBlogEntries = function(request, response)
 
 exports.getBlogEntry = function(request, response)
 {
-    knowledgeBlogService.getBlogEntry(request.params.id, function(entry)
+    knowledgeBlogService.getBlogEntry(request.params.id, function(error, entry)
     {
+      if(error){
+        response.status(error.statusCode).end();
+      }
+      else {
         response.json(entry);
+      }
     });
 };
 

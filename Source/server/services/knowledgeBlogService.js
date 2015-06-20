@@ -133,7 +133,7 @@ exports.getBlogEntry = function(id, callback)
             if(!entry.tags){
               entry.tags = [];
             }
-            callback(entry);
+            callback(null, entry);
         }
     });
 };
