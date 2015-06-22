@@ -34,14 +34,14 @@ exports.createBlogEntry = function(entry, callback)
 {
     db.insert(entry, null, function(err, body)
     {
-        if (err)
-        {
+        if (err) {
             callback(err);
-            return;
         }
-        entry._id = body.id;
-        entry.tags = [];
-        callback(null, entry);
+        else {
+          entry._id = body.id;
+          entry.tags = [];
+          callback(null, entry);
+        }
     });
 };
 
@@ -50,22 +50,22 @@ exports.deleteBlogEntry = function(id, callback)
     //get current rev of dataset
     db.get(id, null, function(err, loadedEntry)
     {
-        if (err)
-        {
+        if (err) {
             callback(err);
-            return;
         }
-        //delete only with correct rev
-        db.destroy(id, loadedEntry._rev, function(err)
-        {
-            if (err)
-            {
-                callback(err);
-                return;
-            }
+        else {
+          //delete only with correct rev
+          db.destroy(id, loadedEntry._rev, function(err)
+          {
+              if (err)
+              {
+                  callback(err);
+                  return;
+              }
 
-            callback(null);
-        });
+              callback(null);
+          });
+        }
     });
 };
 
@@ -74,29 +74,29 @@ exports.updateBlogEntry = function(id, entry, callback)
     //TODO compare Request ID and id of dataset
     db.get(id, null, function(err, loadedEntry)
     {
-        if (err)
-        {
+        if (err) {
             callback(err);
-            return;
         }
 
-        loadedEntry.author = entry.author;
-        loadedEntry.title = entry.title;
-        loadedEntry.content = entry.content;
-        loadedEntry.tags = entry.tags;
+        else {
+          loadedEntry.author = entry.author;
+          loadedEntry.title = entry.title;
+          loadedEntry.content = entry.content;
+          loadedEntry.tags = entry.tags;
 
-        //TODO handle revision conflicts?
-        db.insert(loadedEntry, id, function(err)
-        {
-            if (err)
-            {
-                callback(err);
-            }
-            else
-            {
-                callback(null, entry);
-            }
-        });
+          //TODO handle revision conflicts?
+          db.insert(loadedEntry, id, function(err)
+          {
+              if (err)
+              {
+                  callback(err);
+              }
+              else
+              {
+                  callback(null, entry);
+              }
+          });
+        }
     });
 };
 
@@ -107,9 +107,11 @@ exports.getAllBlogEntries = function(callback)
         include_docs: true
     }, function(err, body)
     {
-        if (!err)
-        {
-            callback(body.rows.map(function(row)
+        if (err){
+          callback(err);
+        }
+        else {
+            callback(null, body.rows.map(function(row)
             {
                 if(!row.doc.tags){
                   row.doc.tags = [];
@@ -124,16 +126,14 @@ exports.getBlogEntry = function(id, callback)
 {
     db.get(id, function(err, entry)
     {
-        if (err)
-        {
+        if (err) {
             callback(err);
         }
-        else
-        {
+        else {
             if(!entry.tags){
               entry.tags = [];
             }
-            callback(entry);
+            callback(null, entry);
         }
     });
 };

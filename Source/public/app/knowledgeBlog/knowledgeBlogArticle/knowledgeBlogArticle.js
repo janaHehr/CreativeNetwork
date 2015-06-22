@@ -33,9 +33,8 @@
 			return debounceFn;
 		}
 
-
-
 		function init() {
+
 
 			//open existing dataset
 			if($routeParams.id) {
@@ -56,7 +55,7 @@
 
 		$scope.openSidebar = buildToggler('sidebar');
 
-		// TODO: DRY
+		// TODO: DRY-->why location.path and not directly getEntry()?
 		$scope.openEntry = function (entry) {
 			var path = '/blog/' + entry._id;
 			$location.path(path);

@@ -6,25 +6,40 @@ exports.createBlogEntry = function(request, response)
 {
     var newEntry = request.body;
 
-    knowledgeBlogService.createBlogEntry(newEntry, function(err, entry)
+    knowledgeBlogService.createBlogEntry(newEntry, function(err, entries)
     {
-        response.json(entry);
+      if(err){
+        response.status(err.statusCode).end();
+      }
+      else {
+        response.json(entries);
+      }
     });
 };
 
 exports.getAllBlogEntries = function(request, response)
 {
-    knowledgeBlogService.getAllBlogEntries(function(entries)
+    knowledgeBlogService.getAllBlogEntries(function(err, entries)
     {
+      if(err){
+        response.status(err.statusCode).end();
+      }
+      else {
         response.json(entries);
+      }
     });
 };
 
 exports.getBlogEntry = function(request, response)
 {
-    knowledgeBlogService.getBlogEntry(request.params.id, function(entry)
+    knowledgeBlogService.getBlogEntry(request.params.id, function(err, entry)
     {
+      if(err){
+        response.status(err.statusCode).end();
+      }
+      else {
         response.json(entry);
+      }
     });
 };
 
@@ -32,21 +47,23 @@ exports.updateBlogEntry = function(request, response)
 {
     knowledgeBlogService.updateBlogEntry(request.params.id, request.body, function(err, entry)
     {
+      if(err){
+        response.status(err.statusCode).end();
+      }
+      else {
         response.json(entry);
+      }
     });
 };
-
 
 exports.deleteBlogEntry = function(request, response)
 {
     knowledgeBlogService.deleteBlogEntry(request.params.id, function(err)
     {
-        if (err)
-        {
-            response.status(500);
+        if (err) {
+            response.status(err.statusCode);
         }
-        else
-        {
+        else {
             response.status(200);
         }
         response.end();

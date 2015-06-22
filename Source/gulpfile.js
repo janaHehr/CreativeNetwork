@@ -281,6 +281,12 @@ gulp.task('build:dev', function(done)
     plugins.runSequence('karma', 'clean', ['copy', 'scripts:dev', 'less:dev', 'lint'], 'copy:server', 'copy:package.json', 'index:dev', done);
 });
 
+// build (for dev) without tests
+gulp.task('build:dev:notest', function(done)
+{
+    plugins.runSequence('clean', ['copy', 'scripts:dev', 'less:dev', 'lint'], 'copy:server', 'copy:package.json', 'index:dev', done);
+});
+
 // deploy task: run tests, afterwards build
 gulp.task('deploy', function(done)
 {
@@ -291,6 +297,12 @@ gulp.task('deploy', function(done)
 gulp.task('dev', function(done)
 {
     plugins.runSequence('build:dev', 'watch:all', 'server', done);
+});
+
+// start server but without tests
+gulp.task('dev:notest', function(done)
+{
+    plugins.runSequence('build:dev:notest', 'watch:all', 'server', done);
 });
 
 // dev workflow without unit tests
