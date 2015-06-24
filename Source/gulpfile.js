@@ -5,7 +5,7 @@ var path = require('path');
 var plugins = require('gulp-load-plugins')(
 {
     pattern: '*',
-    scope: ['dependencies', 'devDependencies', 'peerDependencies']
+    scope: ['dependencies', 'devDependencies']
 });
 
 var vendorFiles = plugins.mainBowerFiles().filter(function(file)
@@ -235,8 +235,6 @@ gulp.task('karma', function(done)
 gulp.task('clean', function()
 {
     del.sync(destinationPath);
-    //return gulp.src(destinationPath)
-    //    .pipe(plugins.clean());
 });
 
 // combines all dist script files to single file
