@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(gulp, config) {
+module.exports = function(gulp, plugins, config) {
 
     // start all watchers
     gulp.task('watch:all', ['watch:less', 'watch:js', 'watch:vendor', 'watch:templates', 'watch:index', 'watch:locales']);
