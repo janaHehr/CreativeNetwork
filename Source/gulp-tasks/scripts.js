@@ -66,6 +66,15 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.jsDistPath));
     });
 
+    // combines all dist script files to single file
+    gulp.task('combineDistJsFiles', function() {
+        return gulp.src(config.jsDistFiles)
+            .pipe(plugins.clean())
+            .pipe(plugins.concat(config.combinedJsDistFile))
+            .pipe(gulp.dest(config.jsDistPath));
+    });
+
+
     // lint
     gulp.task('lint', function() {
         return gulp.src(config.allJsFiles)

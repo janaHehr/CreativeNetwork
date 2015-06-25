@@ -5,7 +5,7 @@ var path = require('path');
 
 var plugins = require('gulp-load-plugins')({
     pattern: '*',
-    scope: ['dependencies', 'devDependencies', 'peerDependencies']
+    scope: ['dependencies', 'devDependencies']
 });
 
 //base variables
@@ -49,46 +49,12 @@ config.vendorFiles = plugins.mainBowerFiles().filter(function(file) {
 config.vendorFiles.push(path.resolve(__dirname + '/public/bower_components/codemirror/mode/markdown/markdown.js'));
 
 
-
+//import all tasks
 require('./gulp-tasks/copy.js')(gulp, plugins, config);
 require('./gulp-tasks/watchers.js')(gulp, plugins, config);
 require('./gulp-tasks/build.js')(gulp, plugins, config);
 require('./gulp-tasks/scripts.js')(gulp, plugins, config);
 require('./gulp-tasks/styles.js')(gulp, plugins, config);
 require('./gulp-tasks/tests.js')(gulp, plugins, config);
-
-
-
-// combines all dist script files to single file
-gulp.task('combineDistJsFiles', function() {
-    return gulp.src(config.jsDistFiles)
-        .pipe(plugins.clean())
-        .pipe(plugins.concat(config.combinedJsDistFile))
-        .pipe(gulp.dest(config.jsDistPath));
-});
-
-gulp.task('server', function() {
-    plugins.nodemon({
-        script: 'server/server.js',
-            //, ext: 'js'
-        env: {
-            'NODE_ENV': 'development'
-        }
-    });
-});
-
-
-// deploy task: run tests, afterwards build
-gulp.task('deploy', function(done) {
-    plugins.runSequence('karma', 'build', done);
-});
-
-// dev workflow: run tests, build for dev, start all watchers, start local webserver
-gulp.task('dev', function(done) {
-    plugins.runSequence('build:dev', 'watch:all', 'server', done);
-});
-
-// dev workflow without unit tests
-// gulp.task('dev:notest', function(done) {
-//     plugins.runSequence('build:dev', 'watch:all:notest', 'server', done);
-// });
+require('./gulp-tasks/run.js')(gulp, plugins, config);
+require('./gulp-tasks/profile-dev.js')(gulp, plugins, config);
