@@ -36,7 +36,8 @@ var config = {
     vendorDistFile: 'vendor.js',
     templateDistFile: applicationName + '-templates.js',
     combinedJsDistFile: applicationName + '.min.js',
-    cssDistFile: 'main.min.css'
+    cssDistFile: 'main.min.css',
+    karmaConfigFile: path.resolve('karma.conf.js')
 };
 
 config.jsDistFiles = [config.jsDistPath + config.vendorDistFile, config.jsDistPath + config.jsDistFile, config.jsDistPath + config.templateDistFile];
