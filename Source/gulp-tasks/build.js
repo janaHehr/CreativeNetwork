@@ -1,7 +1,15 @@
 'use strict';
 
+var del = require('del');
+
 module.exports = function(gulp, plugins, config) {
 
+    // clean destination path
+    gulp.task('clean', function() {
+        del.sync(config.destinationPath);
+        //return gulp.src(destinationPath)
+        //    .pipe(plugins.clean());
+    });
 
     // build
     gulp.task('build', function(done) {

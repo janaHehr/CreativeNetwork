@@ -66,6 +66,13 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.jsDistPath));
     });
 
+    // lint
+    gulp.task('lint', function() {
+        return gulp.src(config.allJsFiles)
+            .pipe(plugins.jshint())
+            .pipe(plugins.jshint.reporter('jshint-stylish'));
+    });
+
     // process all scripts
     gulp.task('scripts', ['package:vendor', 'uglify:js', 'uglify:templates']);
 

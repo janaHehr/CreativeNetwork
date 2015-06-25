@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var del = require('del');
 var path = require('path');
 
 var plugins = require('gulp-load-plugins')({
@@ -49,62 +48,16 @@ config.vendorFiles = plugins.mainBowerFiles().filter(function(file) {
 //all javascript from the lib-dir must not be included here (see var javaScriptFile - beware of file order!!)
 config.vendorFiles.push(path.resolve(__dirname + '/public/bower_components/codemirror/mode/markdown/markdown.js'));
 
-// lint
-gulp.task('lint', function() {
-    return gulp.src(config.allJsFiles)
-        .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter('jshint-stylish'));
-});
 
-
-//TODO: less / sass?
-// process less file to css
-gulp.task('less', function() {
-    return gulp.src(config.mainLessFile)
-        .pipe(plugins.less())
-        .pipe(plugins.autoprefixer({
-            cascade: false
-        }))
-        .pipe(plugins.minifyCss())
-        .pipe(plugins.rename(config.cssDistFile))
-        .pipe(gulp.dest(config.cssDistPath));
-});
-
-// process less file to css without minify
-gulp.task('less:dev', function() {
-    return gulp.src(config.mainLessFile)
-        .pipe(plugins.less())
-        .pipe(plugins.autoprefixer({
-            cascade: false
-        }))
-        .pipe(plugins.minifyCss({
-            keepSpecialComments: '*',
-            keepBreaks: true,
-            noAdvanced: true
-        }))
-        .pipe(plugins.rename(config.cssDistFile))
-        .pipe(gulp.dest(config.cssDistPath));
-});
 
 require('./gulp-tasks/copy.js')(gulp, plugins, config);
 require('./gulp-tasks/watchers.js')(gulp, plugins, config);
 require('./gulp-tasks/build.js')(gulp, plugins, config);
 require('./gulp-tasks/scripts.js')(gulp, plugins, config);
+require('./gulp-tasks/styles.js')(gulp, plugins, config);
+require('./gulp-tasks/tests.js')(gulp, plugins, config);
 
 
-gulp.task('karma', function(done) {
-    plugins.karma.server.start({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }, done);
-});
-
-// clean destination path
-gulp.task('clean', function() {
-    del.sync(config.destinationPath);
-    //return gulp.src(destinationPath)
-    //    .pipe(plugins.clean());
-});
 
 // combines all dist script files to single file
 gulp.task('combineDistJsFiles', function() {
