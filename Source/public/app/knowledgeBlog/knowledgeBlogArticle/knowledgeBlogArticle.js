@@ -34,8 +34,6 @@
 		}
 
 		function init() {
-
-
 			//open existing dataset
 			if($routeParams.id) {
 				knowledgeBlogService.getBlogEntry($routeParams.id).then(function (entry) {
@@ -45,6 +43,9 @@
 			//new dataset:route /blog/new
 			else {
 				$scope.article = {};
+				if($routeParams.title){
+					$scope.article.title = $routeParams.title;
+				}
 				$scope.model.isEditMode=true;
 			}
 

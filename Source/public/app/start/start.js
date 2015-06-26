@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', [])
+    angular.module('start', ['createBlogEntry'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('knowledgeBlog', ['knowledgeBlog.article', 'cutString', 'knowledgeBlogService'])
+    angular.module('knowledgeBlog', ['knowledgeBlog.article', 'cutString', 'knowledgeBlogService', 'createBlogEntry'])
         .config(defineRoutes)
         .controller('KnowledgeBlogController', KnowledgeBlogController);
 

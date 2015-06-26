@@ -23,19 +23,7 @@
 
 <md-content layout="row" layout-align="center start">
     <md-content flex="65" layout="column" layout-align="center">
-        <md-content layout="row" layout-padding>
-            <md-button class="md-icon-button" aria-label="Empty your brain into our database.">
-                <md-tooltip>
-                    Empty your brain and share your knowledge with the world.
-                </md-tooltip>
-                <i class="icon ion-ios-lightbulb inputIconList"></i>
-                </md-icon>
-            </md-button>
-            <md-input-container flex>
-                <label>I want to share with the world...</label>
-                <input ng-model="bindmelater2" class="inputText" style="font-size:1em;" type="text">
-            </md-input-container>
-        </md-content>
+        <create-blog-entry></create-blog-entry>
         <md-content ng-repeat="entry in entries track by entry._id" ng-click="openEntry(entry)" id="entry">
           <md-content layout="row">
                 <img ng-src="https://d262ilb51hltx0.cloudfront.net/fit/c/36/36/1*S74e0h9iVobNegOC1VOXHQ.png" />

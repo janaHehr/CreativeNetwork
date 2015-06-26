@@ -1,0 +1,13 @@
+<md-content flex layout-align="center center" layout-padding layout="row" style="overflow:hidden;background-color:transparent">
+  <md-button ng-click="createBlogEntry()" class="md-icon-button">
+      <!-- <md-tooltip>
+        {{'BLOG.ENTRY.CREATE.TOOLTIP'|translate}}
+      </md-tooltip> -->
+      <i class="icon ion-ios-lightbulb inputIcon"></i>
+      </md-icon>
+  </md-button>
+  <md-input-container flex>
+    <label>{{'BLOG.ENTRY.CREATE.PLACEHOLDER'|translate}}</label>
+      <input ng-model="model.newEntryTitle" class="inputText" type="text">
+  </md-input-container>
+</md-content>
