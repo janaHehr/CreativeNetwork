@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = function(gulp, plugins, config) {
+var del = require('del');
+var vinylPath = require('vinyl-paths');
 
+module.exports = function(gulp, plugins, config) {
     var t = new Date();
     var banner = ['/**',
         ' * Build Time - <%= time %>',
@@ -69,11 +71,10 @@ module.exports = function(gulp, plugins, config) {
     // combines all dist script files to single file
     gulp.task('combineDistJsFiles', function() {
         return gulp.src(config.jsDistFiles)
-            .pipe(plugins.clean())
+            .pipe(vinylPath(del))
             .pipe(plugins.concat(config.combinedJsDistFile))
             .pipe(gulp.dest(config.jsDistPath));
     });
-
 
     // lint
     gulp.task('lint', function() {
