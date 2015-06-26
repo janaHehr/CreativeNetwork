@@ -12,10 +12,12 @@
                 var path = element.attr('ng-href');
                 scope.location = $location;
                 scope.$watch('location.path()', function(newPath) {
-                    if (path === newPath)
+                    if (path === newPath) {
                         element.addClass(activeCssClass);
-                    else
+                      }
+                    else {
                         element.removeClass(activeCssClass);
+                      }
                 });
             }
         };

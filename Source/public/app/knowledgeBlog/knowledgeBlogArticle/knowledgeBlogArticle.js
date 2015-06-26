@@ -5,7 +5,7 @@
 		.config(defineRoutes)
 		.controller('KnowledgeBlogArticleController', KnowledgeBlogArticleController)
 
-	.controller('SidebarController', function ($scope, $timeout, $mdSidenav, $log) {
+	.controller('SidebarController', function ($scope, $timeout, $mdSidenav) {
 		$scope.close = function () {
 			$mdSidenav('sidebar').close();
 			};
@@ -23,7 +23,7 @@
 			});
 	}
 
-	function KnowledgeBlogArticleController($scope, knowledgeBlogService, tagService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil, $log) {
+	function KnowledgeBlogArticleController($scope, knowledgeBlogService, tagService, $routeParams, $location, $timeout, $mdSidenav, $mdUtil) {
 
 		function buildToggler(navID) {
 			var debounceFn = $mdUtil.debounce(function () {

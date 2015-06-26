@@ -14,7 +14,7 @@
          'pascalprecht.translate',
          'errorHandling'
       ])
-      .config(init)
+      .config(init);
 
 
   function init($routeProvider, $locationProvider, $showdownProvider, $mdThemingProvider, $translateProvider, $httpProvider)
