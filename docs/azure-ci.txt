@@ -1,0 +1,5 @@
+Remote hinzufügen (einmalig pro Repo):
+  git remote add azure https://azure7859423@cn-alpha.scm.azurewebsites.net:443/cn-alpha.git
+Deployment anstoßen (nimmt Stand vom Branch azure-deploy, wird demnächst ein Gulp Task):
+  git push -u azure azure-deploy:master
+  Pwd: Cr3ativ!ty
