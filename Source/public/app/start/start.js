@@ -14,7 +14,7 @@
 
   function StartController($scope, $location) {
     $scope.searchBlogEntry = function() {
-      $location.path('/blog');
+      $location.path('/blog').search('search', $scope.model.search);
     };
   }
 })();

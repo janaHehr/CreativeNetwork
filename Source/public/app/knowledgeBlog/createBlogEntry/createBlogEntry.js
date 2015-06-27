@@ -8,6 +8,7 @@
     function createBlogEntry() {
       return {
         restrict:'EA',
+        scope:true,
         templateUrl:'app/knowledgeBlog/createBlogEntry/createBlogEntry.html',
         controller:'CreateBlogEntryController'
       };
