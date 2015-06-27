@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('createBlogEntry',[])
+  angular.module('createBlogEntry',['onEnter'])
     .directive('createBlogEntry',createBlogEntry)
     .controller('CreateBlogEntryController',CreateBlogEntryController);
 

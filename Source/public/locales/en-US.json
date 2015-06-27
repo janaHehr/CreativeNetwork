@@ -18,7 +18,6 @@
       "CREATE":
       {
         "NEW":"Create new post",
-        "TOOLTIP":"Empty your brain and share your knowledge with the world.",
         "PLACEHOLDER":"I want to share with the world..."
       }
     }
@@ -33,7 +32,6 @@
     "DELETE":"delete",
     "SEARCH":
     {
-      "TOOLTIP":"Yes, that's seems to be magic, but sometimes i can find things for you.",
       "PLACEHOLDER":"Magic machine, please find for me..."
     },
     "CONTINUEREADING":"Continue reading"
