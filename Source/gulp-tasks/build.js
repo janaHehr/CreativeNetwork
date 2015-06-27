@@ -30,6 +30,4 @@ module.exports = function(gulp, plugins, config) {
     gulp.task('deploy', function(done) {
         plugins.runSequence('karma', 'build', done);
     });
-
-
 };

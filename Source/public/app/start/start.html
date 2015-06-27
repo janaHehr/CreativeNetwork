@@ -6,20 +6,17 @@
 <md-content style="overflow:hidden;min-width:900px;min-height:300px">
   <div>
     <img alt="" src="content/header.png" style="width:100%; height:auto;"/>
-    <span class="citeHeader" style="position:absolute;top:20px;left:15px;">{{'START.CITE' | translate}}</span>
-    <span class="citeSub" style="position:absolute;top:70px;left:15px;">{{'START.CITEAUTOR' | translate}}</span>
+    <span class="citeHeader" style="position:absolute;top:40px;left:15px;">{{'START.CITE' | translate}}</span>
+    <span class="citeSub" style="position:absolute;top:90px;left:15px;">{{'START.CITEAUTOR' | translate}}</span>
   </div>
 </md-content>
 <md-content class="startContent" flex layout-align="center center" layout-padding layout="row" style="overflow:hidden;">
-  <md-button class="md-icon-button" ng-href="/blog">
-    <md-tooltip>
-      {{'GENERAL.SEARCH.TOOLTIP'|translate}}
-    </md-tooltip>
+  <md-button class="md-icon-button" ng-click="searchBlogEntry()">
     <i class="icon ion-wand inputIcon"></i>
   </md-button>
 <md-input-container flex="40">
   <label>{{'GENERAL.SEARCH.PLACEHOLDER'|translate}}</label>
-  <input class="inputText" ng-model="bindmelater" type="text">
+  <input class="inputText" ng-model="model.search" type="text" on-enter="searchBlogEntry()"/>
 </md-input-container>
 <label class="inputSeperator" style="padding:25px 60px 0 40px;">{{'START.ACTIONSEPERATOR'|translate}}</label>
 <create-blog-entry flex="40"></create-blog-entry>

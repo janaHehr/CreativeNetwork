@@ -1,39 +1,45 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular.module('knowledgeBlog', ['knowledgeBlog.article', 'cutString', 'knowledgeBlogService', 'createBlogEntry'])
-        .config(defineRoutes)
-        .controller('KnowledgeBlogController', KnowledgeBlogController);
+  angular.module('knowledgeBlog', ['knowledgeBlog.article', 'cutString', 'knowledgeBlogService', 'createBlogEntry'])
+    .config(defineRoutes)
+    .controller('KnowledgeBlogController', KnowledgeBlogController);
 
-    function defineRoutes($routeProvider) {
-        $routeProvider.when('/blog', {
-            templateUrl: 'app/knowledgeBlog/knowledgeBlog.html',
-            controller: 'KnowledgeBlogController'
-        });
+  function defineRoutes($routeProvider) {
+    $routeProvider.when('/blog', {
+      templateUrl: 'app/knowledgeBlog/knowledgeBlog.html',
+      controller: 'KnowledgeBlogController'
+    });
+  }
+
+  function KnowledgeBlogController($scope, knowledgeBlogService, $location, $filter, $routeParams) {
+    $scope.entries = [];
+    $scope.selectedEntry = {};
+    $scope.model = {
+      search:''
+    };
+    console.log($routeParams.search);
+    if ($routeParams.search) {
+      $scope.model.search = $routeParams.search;
     }
+    $scope.openEntry = function(entry) {
 
-    function KnowledgeBlogController($scope, knowledgeBlogService, $location, $filter) {
-        $scope.entries = [];
-        $scope.selectedEntry = {};
+      if (entry && entry._id) {
+        var path = '/blog/' + entry._id;
+        $location.path(path);
+      }
+    };
 
-        $scope.openEntry = function(entry) {
+    $scope.createBlogEntry = function() {
+      $location.path('/blog/new');
+    };
 
-            if (entry && entry._id) {
-                var path = '/blog/' + entry._id;
-                $location.path(path);
-            }
-        };
+    knowledgeBlogService.getEntries().then(function(entries) {
+      $scope.entries = entries;
+    });
 
-        $scope.createBlogEntry = function() {
-            $location.path('/blog/new');
-        };
-
-        knowledgeBlogService.getEntries().then(function(entries) {
-            $scope.entries = entries;
-        });
-
-        $scope.getContent = function(content) {
-           return $filter('cutString')(content, true, 400, '...');
-        };
-    }
+    $scope.getContent = function(content) {
+      return $filter('cutString')(content, true, 400, '...');
+    };
+  }
 })();

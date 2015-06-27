@@ -1,13 +1,14 @@
 (function() {
   'use strict';
 
-  angular.module('createBlogEntry',[])
+  angular.module('createBlogEntry',['onEnter'])
     .directive('createBlogEntry',createBlogEntry)
     .controller('CreateBlogEntryController',CreateBlogEntryController);
 
     function createBlogEntry() {
       return {
         restrict:'EA',
+        scope:true,
         templateUrl:'app/knowledgeBlog/createBlogEntry/createBlogEntry.html',
         controller:'CreateBlogEntryController'
       };

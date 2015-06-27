@@ -1,16 +1,20 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular.module('start', ['createBlogEntry'])
-        .config(defineRoutes)
-        .controller('StartController', StartController);
+  angular.module('start', ['createBlogEntry','onEnter'])
+    .config(defineRoutes)
+    .controller('StartController', StartController);
 
-    function defineRoutes($routeProvider) {
-        $routeProvider.when('/', {
-            templateUrl: 'app/start/start.html',
-            controller: 'StartController'
-        });
-    }
+  function defineRoutes($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'app/start/start.html',
+      controller: 'StartController'
+    });
+  }
 
-    function StartController() {}
+  function StartController($scope, $location) {
+    $scope.searchBlogEntry = function() {
+      $location.path('/blog').search('search', $scope.model.search);
+    };
+  }
 })();
