@@ -34,9 +34,8 @@
     "SEARCH":
     {
       "TOOLTIP":"Yes, that's seems to be magic, but sometimes i can find things for you.",
-      "PLACEHOLDER":"Machine, please find for me..."
+      "PLACEHOLDER":"Magic machine, please find for me..."
     },
     "CONTINUEREADING":"Continue reading"
-
   }
 }
