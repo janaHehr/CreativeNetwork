@@ -24,7 +24,7 @@ app.get('/*', function(request, response)
     response.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
 
-http.listen(port, function()
+http.listen(process.env.PORT || port, function()
 {
-    console.log('listening on *:' + port);
+    console.log('listening on *:' + (process.env.PORT || port));
 });

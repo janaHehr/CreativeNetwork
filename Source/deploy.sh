@@ -30,6 +30,7 @@ SCRIPT_DIR="${BASH_SOURCE[0]%\\*}"
 SCRIPT_DIR="${SCRIPT_DIR%/*}"
 ARTIFACTS=$SCRIPT_DIR/../artifacts
 KUDU_SYNC_CMD=${KUDU_SYNC_CMD//\"}
+DEPLOYMENT_SOURCE="$DEPLOYMENT_SOURCE/$SCRIPT_DIR"
 
 if [[ ! -n "$DEPLOYMENT_SOURCE" ]]; then
   DEPLOYMENT_SOURCE=$SCRIPT_DIR
@@ -77,7 +78,7 @@ selectNodeVersion () {
       NODE_EXE=`cat "$DEPLOYMENT_TEMP/__nodeVersion.tmp"`
       exitWithMessageOnError "getting node version failed"
     fi
-    
+
     if [[ -e "$DEPLOYMENT_TEMP/.tmp" ]]; then
       NPM_JS_PATH=`cat "$DEPLOYMENT_TEMP/__npmVersion.tmp"`
       exitWithMessageOnError "getting npm version failed"
@@ -104,21 +105,24 @@ echo 1. Select node version
 selectNodeVersion
 
 echo 2. Install npm packages for gulp
-if [ -e "package.json" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
+  cd "$DEPLOYMENT_SOURCE"
   eval $NPM_CMD install
   exitWithMessageOnError "npm for gulp failed"
+  cd - > /dev/null
 fi
 
 echo 3. Execute Gulp
-if [ -e "gulpfile.js" ]; then
-    ./node_modules/.bin/gulp build
-    exitWithMessageOnError "gulp failed"
+if [ -e "$DEPLOYMENT_SOURCE/gulpfile.js" ]; then
+  cd "$DEPLOYMENT_SOURCE"
+  ./node_modules/.bin/gulp build
+  exitWithMessageOnError "gulp failed"
+  cd - > /dev/null
 fi
-
 
 echo 4. KuduSync
 if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
-  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
+  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE/dist" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
   exitWithMessageOnError "Kudu Sync failed"
 fi
 
