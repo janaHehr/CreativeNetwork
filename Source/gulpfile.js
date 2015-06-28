@@ -45,11 +45,6 @@ config.vendorFiles = plugins.mainBowerFiles().filter(function(file) {
     return file.indexOf('.js') > -1 && file.indexOf('.css') === -1 && file.indexOf('jquery.js') === -1 && file.indexOf('bootstrap.js') === -1;
 });
 
-//add all javascript files that are not bower main files (see '.bower.json' in the bower_components folder)
-//all javascript from the lib-dir must not be included here (see var javaScriptFile - beware of file order!!)
-config.vendorFiles.push(path.resolve(__dirname + '/public/bower_components/codemirror/mode/markdown/markdown.js'));
-
-
 //import all tasks
 require('./gulp-tasks/copy.js')(gulp, plugins, config);
 require('./gulp-tasks/watchers.js')(gulp, plugins, config);
