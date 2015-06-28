@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('start', ['createBlogEntry','onEnter'])
+  angular.module('start', ['createBlogEntry', 'onEnter'])
     .config(defineRoutes)
     .controller('StartController', StartController);
 
@@ -13,8 +13,17 @@
   }
 
   function StartController($scope, $location) {
+    $scope.model = {
+      search: ''
+    };
+
     $scope.searchBlogEntry = function() {
-      $location.path('/blog').search('search', $scope.model.search);
+      if ($scope.model.search) {
+        $location.path('/blog').search('search', $scope.model.search);
+      }
+      else {
+        $location.path('/blog');
+      }
     };
   }
 })();
