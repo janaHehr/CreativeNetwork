@@ -1,7 +1,7 @@
 'use strict';
 
-// var nano = require('nano')('https://creativenetwork.iriscouch.com');
-var nano = require('nano')('http://192.168.59.103:5984');
+var nano = require('nano')('https://creativenetwork.iriscouch.com');
+//var nano = require('nano')('http://192.168.59.103:5984');
 var db;
 var dbName = 'knowledgebase';
 
