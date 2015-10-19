@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '0.12'
+
+script: cd source && npm install && bower install && npm test
+
+notifications:
+  slack:
+    rooms:
+      - fachgruppeuiux:UouB0QTvbtA3Wk3nXf5aLmjA#creativenetwork
+  
