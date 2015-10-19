@@ -8,7 +8,8 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test": "karma start"
   },
   "devDependencies": {
     "del": "~1.2.0",
