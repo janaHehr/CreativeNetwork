@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - '0.12'
 
-script: cd source && npm install && bower install && npm test
+script: cd Source && npm install && bower install && npm test
 
 notifications:
   slack:
