@@ -1,6 +1,0 @@
-{
-  "cmd": "gulp.cmd",
-  "name": "Dev Build with watches",
-  "args": ["dev"],
-  "sh": false
-}
