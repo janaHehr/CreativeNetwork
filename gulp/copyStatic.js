@@ -4,24 +4,29 @@ module.exports = function(gulp, plugins, config) {
 
     // copy content to dist
     gulp.task('copyStatic:content', function() {
-        return gulp.src([config.srcPublicPath + 'assets/**/*.*',  '!' + config.srcPublicPath + 'assets/sass/**/*.*'])
-            .pipe(gulp.dest(config.destPath + 'content'));
+        return gulp.src([config.srcPublicPath + 'assets/**/*.*', '!' + config.srcPublicPath + 'assets/sass/**/*.*'])
+            .pipe(gulp.dest(config.destPublicPath + 'content'));
     });
 
     // copy locales to dist
     gulp.task('copyStatic:locales', function() {
         return gulp.src(config.srcPublicPath + 'locales/**/*.*')
-            .pipe(gulp.dest(config.destPath + 'locales'));
+            .pipe(gulp.dest(config.destPublicPath + 'locales'));
     });
 
     // copy fonts from all bower_components to dist
     gulp.task('copyStatic:fonts', function() {
         return gulp.src(config.srcPublicPath + 'bower_components/**/fonts/*.*')
-            .pipe(gulp.dest('fonts'));
+            .pipe(gulp.dest(config.destPublicPath + 'fonts'));
+    });
+
+    gulp.task('copyStatic:package.json', function() {
+        return gulp.src('package.json')
+            .pipe(gulp.dest(config.destPath));
     });
 
     // copy static files to dist
-    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts']);
+    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:package.json']);
 
     /*----------watchers----------*/
 
