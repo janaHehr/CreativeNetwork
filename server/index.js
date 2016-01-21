@@ -1,116 +1,50 @@
 'use strict';
 
+var path = require('path');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').Server(app);
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var Git = require('nodegit');
-var auth = require('./auth.json');
+var socketIo = require('socket.io')(http);
 
-// TODO: use advanced file system handling, e.g. fs-extra
+var repo = require('./repoService.js');
+var config = require('./config.json')[process.env.NODE_ENV || 'production'];
+var port = process.env.PORT || config.port;
+console.log('using ' + config.publicFilePath + ' to serve public files');
 
-var repoPath = __dirname + '/cn-data';
-var documentFile = __dirname + '/cn-data/document-dev';
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+    extended: true
+}));
 
-function clone() {
-    // TODO: check, if repo is already there and not empty
+app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
+app.get('/*', function(req, res) {
+    res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
+});
 
-    // if (fs.readdirSync(repoPath).length === 0) {
-    return Git.Clone('https://github.com/cn-data/cn-data.git', repoPath);
-    // }
-}
+socketIo.on('connection', function(socket) {
+    var clientIp = socket.request.connection.remoteAddress;
+    console.log('Client connected:\t' + clientIp);
+    socket.on('disconnect', function() {
+        console.log('Client disconnected:\t' + clientIp);
+    });
 
-function pull() {
-    var repo;
+    //client functions
+    // socket.on('getAllDocuments', function(callback) {
+    //     callback(fileInteraction.getDocuments());
+    // });
+    //
+    // socket.on('updateDocument', function(document) {
+    //     fileInteraction.updateDocument(document);
+    //     socket.broadcast.emit('documentUpdated', document);
+    // });
+});
 
-    return Git.Repository.open(repoPath).then(function(r) {
-            repo = r;
-            return repo.fetchAll();
-        }).then(function() {
-            return repo.mergeBranches('master', 'origin/master');
-        })
-        /*.then(function(index) {
-                if (index.hasConflicts()) {
-                    console.log('Conflict time!');
-                }
-            })*/
-        .catch(function(reason) {
-            console.log(reason);
-        });
-}
-
-function push() {
-    var repo;
-
-    return Git.Repository.open(repoPath)
-        .then(function(r) {
-            repo = r;
-            return repo.getRemote('origin');
-        }).then(function(remote) {
-            return remote.push(['refs/heads/master:refs/heads/master'], {
-                callbacks: {
-                    credentials: function() {
-                        return Git.Cred.userpassPlaintextNew(auth.username, auth.password);
-                    }
-                }
-            });
-        }).then(function() {
-            console.log('remote Pushed!');
-        })
-        .catch(function(reason) {
-            console.log(reason);
-        });
-}
-
-function addCommit() {
-    var repo, oid;
+http.listen(port, function() {
+    console.log('listening on *:' + port);
+});
 
 
-    return Git.Repository.open(repoPath)
-        .then(function(r) {
-            repo = r;
-            return repo.openIndex();
-        })
-        .then(function(index) {
-            index.addByPath('document-dev');
-            index.write();
-            return index.writeTree();
-
-        }).then(function(oidResult) {
-
-            oid = oidResult;
-            return Git.Reference.nameToId(repo, 'HEAD');
-
-        }).then(function(head) {
-
-            return repo.getCommit(head);
-
-        }).then(function(parent) {
-
-            var author = Git.Signature.now('Dev-Author', 'author@email.com');
-            var committer = Git.Signature.now('Dev-Commiter', 'commiter@email.com');
-
-            return repo.createCommit('HEAD', author, committer, 'dev dummy commit', oid, [parent]);
-        }).then(function(commitId) {
-            return console.log('New Commit: ', commitId);
-        })
-        .catch(function(reason) {
-            console.log(reason);
-        });
-}
-
-clone().then(addCommit).then(pull).then(push);
-
-// app.use(bodyParser.json()); // to support JSON-encoded bodies
-// app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
-//     extended: true
-// }));
-//
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
-// });
-//
 // app.get('/load', function(request, response) {
 //
 //     // TODO: pull
@@ -139,8 +73,4 @@ clone().then(addCommit).then(pull).then(push);
 //     //     .then(function() {
 //     //         return response.json(true);
 //     //     });
-// });
-//
-// http.listen(51142, function() {
-//     console.log('listening on *:51142');
 // });
