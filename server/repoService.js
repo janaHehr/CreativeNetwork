@@ -34,28 +34,28 @@ function pull() {
         });
 }
 
-function push() {
-    var repo;
-
-    return Git.Repository.open(repoPath)
-        .then(function(r) {
-            repo = r;
-            return repo.getRemote('origin');
-        }).then(function(remote) {
-            return remote.push(['refs/heads/master:refs/heads/master'], {
-                callbacks: {
-                    credentials: function() {
-                        return Git.Cred.userpassPlaintextNew(auth.username, auth.password);
-                    }
-                }
-            });
-        }).then(function() {
-            console.log('remote Pushed!');
-        })
-        .catch(function(reason) {
-            console.log(reason);
-        });
-}
+// function push() {
+//     var repo;
+//
+//     return Git.Repository.open(repoPath)
+//         .then(function(r) {
+//             repo = r;
+//             return repo.getRemote('origin');
+//         }).then(function(remote) {
+//             return remote.push(['refs/heads/master:refs/heads/master'], {
+//                 callbacks: {
+//                     credentials: function() {
+//                         return Git.Cred.userpassPlaintextNew(auth.username, auth.password);
+//                     }
+//                 }
+//             });
+//         }).then(function() {
+//             console.log('remote Pushed!');
+//         })
+//         .catch(function(reason) {
+//             console.log(reason);
+//         });
+// }
 
 function addCommit() {
     var repo, oid;

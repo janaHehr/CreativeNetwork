@@ -7,6 +7,11 @@ var app = express();
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
 
+
+var fs = require('fs');
+var repoPath = path.resolve(__dirname + '/cn-data');
+
+
 var repo = require('./repoService.js');
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
 var port = process.env.PORT || config.port;
@@ -30,14 +35,36 @@ socketIo.on('connection', function(socket) {
     });
 
     //client functions
-    // socket.on('getAllDocuments', function(callback) {
-    //     callback(fileInteraction.getDocuments());
-    // });
-    //
-    // socket.on('updateDocument', function(document) {
-    //     fileInteraction.updateDocument(document);
-    //     socket.broadcast.emit('documentUpdated', document);
-    // });
+    socket.on('getAllPosts', function(callback) {
+        // TODO: get all posts from repoService
+
+        fs.readdir(repoPath).then(function(files) {
+            callback(files);
+        });
+    });
+
+    socket.on('updatePost', function(post) {
+        // TODO: update post
+        socket.broadcast.emit('postUpdated', post);
+    });
+
+    socket.on('addDocument', function(callback) {
+        // TODO: create new post
+        var post = {};
+        socket.broadcast.emit('postAdded', post);
+        callback(post);
+    });
+
+    socket.on('deletePost', function(name) {
+        // TODO: delete post
+        socket.broadcast.emit('postDeleted', name);
+    });
+
+    socket.on('getPost', function(name, callback) {
+        // TODO: get post
+        var post = {};
+        callback(post);
+    });
 });
 
 http.listen(port, function() {
