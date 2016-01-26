@@ -1,17 +1,30 @@
-(function(){
+(function() {
     'use strict';
 
-    angular.module('start', ['ngRoute'])
+    angular.module('start', ['ngRoute', 'postService'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
     function defineRoutes($routeProvider) {
-        $routeProvider.when('/start', {
+        $routeProvider.when('/', {
             templateUrl: 'app/start/start.html',
             controller: 'StartController'
         });
     }
-    function StartController($scope) {
 
+    function StartController($scope, $location, postService) {
+        postService.getPostList().then(function(posts) {
+            $scope.posts = posts;
+        });
+
+        $scope.newPost = {};
+
+        $scope.addPost = function() {
+            if (typeof $scope.newPost.name !== 'undefined' && typeof $scope.newPost.text !== 'undefined' && $scope.newPost.name.length > 0) {
+                postService.addPost($scope.newPost).then(function(post) {
+                    $location.path('/post/' + post.name);
+                });
+            }
+        };
     }
 }());

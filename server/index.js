@@ -8,7 +8,7 @@ var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
 
 
-var fs = require('fs');
+var fs = require('fs-promise');
 var repoPath = path.resolve(__dirname + '/cn-data');
 
 
@@ -35,24 +35,37 @@ socketIo.on('connection', function(socket) {
     });
 
     //client functions
-    socket.on('getAllPosts', function(callback) {
-        // TODO: get all posts from repoService
-
+    socket.on('getPostList', function(callback) {
         fs.readdir(repoPath).then(function(files) {
             callback(files);
         });
     });
 
-    socket.on('updatePost', function(post) {
-        // TODO: update post
-        socket.broadcast.emit('postUpdated', post);
+    socket.on('addPost', function(post, callback) {
+        // TODO: replace spaces from name to dashes?
+        fs.writeFile(repoPath + '/' + post.name, post.text).then(function() {
+            callback(post);
+            socket.broadcast.emit('postAdded', post);
+        });
     });
 
-    socket.on('addDocument', function(callback) {
-        // TODO: create new post
-        var post = {};
-        socket.broadcast.emit('postAdded', post);
-        callback(post);
+    socket.on('updatePost', function(post) {
+        // TODO: delayed file writing to avoid high rate writing
+        fs.writeFile(repoPath + '/' + post.name, post.text).then(function() {
+            socket.broadcast.emit('postUpdated', post);
+        });
+    });
+
+    socket.on('renamePost', function(oldName, newName) {
+        fs.rename(repoPath + '/' + oldName, repoPath + '/' + newName).then(function() {
+            socket.broadcast.emit('postRenamed', oldName, newName);
+        });
+    });
+
+    socket.on('commitPost', function(post) {
+        // TODO: commit
+        // TODO: when push?
+        socket.broadcast.emit('postCommitted', post);
     });
 
     socket.on('deletePost', function(name) {
@@ -61,9 +74,12 @@ socketIo.on('connection', function(socket) {
     });
 
     socket.on('getPost', function(name, callback) {
-        // TODO: get post
-        var post = {};
-        callback(post);
+        fs.readFile(repoPath + '/' + name, 'utf8').then(function(text) {
+            callback({
+                name: name,
+                text: text
+            });
+        });
     });
 });
 

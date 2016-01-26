@@ -5,12 +5,13 @@
             'ngRoute',
             'ngSanitize',
             'pascalprecht.translate',
+            'btford.socket-io',
             'start',
             'post'
         ])
         .config(init);
 
-    function init($routeProvider, $locationProvider,$translateProvider) {
+    function init($routeProvider, $locationProvider, $translateProvider) {
 
         $locationProvider.html5Mode(true);
 
@@ -19,8 +20,8 @@
         });
 
         //i18n: use it with {{'ModulName.Elementname' | translate}}
-       $translateProvider.useStaticFilesLoader({
-            prefix:'locales/',
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'locales/',
             suffix: '.json'
         });
         $translateProvider.useSanitizeValueStrategy('sanitize');
