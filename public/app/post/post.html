@@ -1,2 +1,2 @@
 <h1>{{post.name}}</h1>
-<pre style="font-family: inherit;">{{post.text}}</pre>
+<textarea ng-change="updatePost()" ng-model="post.text"></textarea>

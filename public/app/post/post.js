@@ -13,8 +13,17 @@
     }
 
     function PostController($scope, $routeParams, postService) {
+        postService.postUpdated = function(post) {
+            $scope.post = post;
+        };
+
         postService.getPost($routeParams.name).then(function(post) {
             $scope.post = post;
         });
+
+        $scope.updatePost = function () {
+          console.log('updatePost');
+          postService.updatePost($scope.post);
+        };
     }
 }());
