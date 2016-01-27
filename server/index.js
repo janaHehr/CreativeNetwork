@@ -44,7 +44,7 @@ function existsFile(file) {
 setInterval(function() {
     for (var key in cachedPosts) {
         if (cachedPosts.hasOwnProperty(key)) {
-            fs.writeFileSync(key, cachedPosts[key].text);
+            fs.writeFileSync(repoPath + '/' + key, cachedPosts[key].text);
         }
     }
 }, 2 * 60 * 1000);
