@@ -13,7 +13,7 @@
     }
 
     function PostController($scope, $routeParams, postService) {
-        postService.postUpdated = function(post) {
+        postService.postCreatedOrUpdated = function(post) {
             if (post.name === $scope.post.name) {
                 $scope.post = post;
             }
@@ -23,9 +23,8 @@
             $scope.post = post;
         });
 
-        $scope.updatePost = function() {
-            console.log('updatePost');
-            postService.updatePost($scope.post);
+        $scope.createOrUpdatePost = function() {
+            postService.createOrUpdatePost($scope.post);
         };
     }
 }());

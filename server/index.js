@@ -10,7 +10,7 @@ var socketIo = require('socket.io')(http);
 
 var fs = require('fs-promise');
 var repoPath = path.resolve(__dirname + '/cn-data');
-
+var cachedPosts = {};
 
 var repo = require('./repoService.js');
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
@@ -54,32 +54,20 @@ socketIo.on('connection', function(socket) {
         });
     });
 
-    socket.on('createPost', function(post, callback, errorCallback) {
-        // TODO: replace spaces from name to dashes?
+    socket.on('createOrUpdatePost', function(post, callback) {
+        // TODO: update in cachedPosts too (whether it's already in there or not)
         var file = repoPath + '/' + post.name;
         if (!existsFile(file)) {
-            fs.writeFile(repoPath + '/' + post.name, post.text).then(function() {
-                callback(post);
-                socket.broadcast.emit('postCreated', post);
-            });
-        } else {
-            errorCallback('Post with the given name exists already.');
+            // TODO: replace spaces from name to dashes?
         }
-    });
-
-    socket.on('updatePost', function(post, errorCallback) {
-        // TODO: delayed file writing to avoid high rate writing
-        var file = repoPath + '/' + post.name;
-        if (existsFile(file)) {
-            fs.writeFile(file, post.text).then(function() {
-                socket.broadcast.emit('postUpdated', post);
-            });
-        } else {
-            errorCallback('Post does not exist.');
-        }
+        fs.writeFile(file, post.text).then(function() {
+            callback(post);
+            socket.broadcast.emit('postCreatedOrUpdated', post);
+        });
     });
 
     socket.on('renamePost', function(oldName, newName) {
+        // TODO: rename the file and rename in cachedPosts too
         fs.rename(repoPath + '/' + oldName, repoPath + '/' + newName).then(function() {
             socket.broadcast.emit('postRenamed', oldName, newName);
         });
@@ -88,15 +76,19 @@ socketIo.on('connection', function(socket) {
     socket.on('commitPost', function(post) {
         // TODO: commit
         // TODO: when push?
+        // TODO: delete from cachedPosts
         socket.broadcast.emit('postCommitted', post);
     });
 
     socket.on('deletePost', function(name) {
+        // TODO: delete from cachedPosts
         // TODO: delete post
         socket.broadcast.emit('postDeleted', name);
     });
 
     socket.on('getPost', function(name, callback) {
+        // TODO: if existing in cachedPosts: get rom there
+        //else: get from file
         fs.readFile(repoPath + '/' + name, 'utf8').then(function(text) {
             callback({
                 name: name,

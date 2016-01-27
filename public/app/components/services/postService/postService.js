@@ -7,9 +7,9 @@
     function postService($q, socketService) {
         var module = {};
 
-        module.postUpdated = function() {};
-        socketService.on('postUpdated', function (post) {
-          module.postUpdated(post);
+        module.postCreatedOrUpdated = function() {};
+        socketService.on('postCreatedOrUpdated', function(post) {
+            module.postUpdated(post);
         });
 
         module.getPostList = function() {
@@ -22,16 +22,12 @@
             return deferred.promise;
         };
 
-        module.createPost = function(post) {
+        module.createOrUpdatePost = function(post) {
             var deferred = $q.defer();
-            socketService.emit('createPost', post, function(post) {
+            socketService.emit('createOrUpdatePost', post, function(post) {
                 deferred.resolve(post);
             });
             return deferred.promise;
-        };
-
-        module.updatePost = function(post) {
-            socketService.emit('updatePost', post);
         };
 
 
