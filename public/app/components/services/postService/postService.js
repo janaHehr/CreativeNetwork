@@ -9,7 +9,7 @@
 
         module.postCreatedOrUpdated = function() {};
         socketService.on('postCreatedOrUpdated', function(post) {
-            module.postUpdated(post);
+            module.postCreatedOrUpdated(post);
         });
 
         module.getPostList = function() {

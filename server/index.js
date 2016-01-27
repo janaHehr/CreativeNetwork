@@ -40,6 +40,17 @@ function existsFile(file) {
     }
 }
 
+//write cache to file, every 2 minutes
+setInterval(function() {
+    for (var key in cachedPosts) {
+        if (cachedPosts.hasOwnProperty(key)) {
+            fs.writeFileSync(key, cachedPosts[key].text);
+        }
+    }
+}, 2 * 60 * 1000);
+
+
+
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('Client connected:\t' + clientIp);
@@ -55,28 +66,33 @@ socketIo.on('connection', function(socket) {
     });
 
     socket.on('createOrUpdatePost', function(post, callback) {
-        // TODO: update in cachedPosts too (whether it's already in there or not)
         var file = repoPath + '/' + post.name;
         if (!existsFile(file)) {
             // TODO: replace spaces from name to dashes?
-        }
-        fs.writeFile(file, post.text).then(function() {
+            fs.writeFile(file, post.text).then(function() {
+                callback(post);
+                socket.broadcast.emit('postCreatedOrUpdated', post);
+            });
+        } else {
+            cachedPosts[post.name] = post;
             callback(post);
             socket.broadcast.emit('postCreatedOrUpdated', post);
-        });
+        }
     });
 
     socket.on('renamePost', function(oldName, newName) {
-        // TODO: rename the file and rename in cachedPosts too
         fs.rename(repoPath + '/' + oldName, repoPath + '/' + newName).then(function() {
+            cachedPosts[newName] = cachedPosts[oldName];
+            delete cachedPosts[oldName];
             socket.broadcast.emit('postRenamed', oldName, newName);
         });
     });
 
     socket.on('commitPost', function(post) {
+        cachedPosts[post.name] = post;
+        // TODO: write to file and delete from cachedPosts
         // TODO: commit
         // TODO: when push?
-        // TODO: delete from cachedPosts
         socket.broadcast.emit('postCommitted', post);
     });
 
@@ -87,14 +103,16 @@ socketIo.on('connection', function(socket) {
     });
 
     socket.on('getPost', function(name, callback) {
-        // TODO: if existing in cachedPosts: get rom there
-        //else: get from file
-        fs.readFile(repoPath + '/' + name, 'utf8').then(function(text) {
-            callback({
-                name: name,
-                text: text
+        if (typeof cachedPosts[name] !== 'undefined') {
+            callback(cachedPosts[name]);
+        } else {
+            fs.readFile(repoPath + '/' + name, 'utf8').then(function(text) {
+                callback({
+                    name: name,
+                    text: text
+                });
             });
-        });
+        }
     });
 });
 

@@ -23,7 +23,7 @@
             $scope.post = post;
         });
 
-        $scope.createOrUpdatePost = function() {
+        $scope.updatePost = function() {
             postService.createOrUpdatePost($scope.post);
         };
     }
