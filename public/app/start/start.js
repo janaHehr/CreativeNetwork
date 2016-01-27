@@ -19,9 +19,9 @@
 
         $scope.newPost = {};
 
-        $scope.addPost = function() {
+        $scope.createPost = function() {
             if (typeof $scope.newPost.name !== 'undefined' && typeof $scope.newPost.text !== 'undefined' && $scope.newPost.name.length > 0) {
-                postService.addPost($scope.newPost).then(function(post) {
+                postService.createPost($scope.newPost).then(function(post) {
                     $location.path('/post/' + post.name);
                 });
             }

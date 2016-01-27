@@ -14,16 +14,18 @@
 
     function PostController($scope, $routeParams, postService) {
         postService.postUpdated = function(post) {
-            $scope.post = post;
+            if (post.name === $scope.post.name) {
+                $scope.post = post;
+            }
         };
 
         postService.getPost($routeParams.name).then(function(post) {
             $scope.post = post;
         });
 
-        $scope.updatePost = function () {
-          console.log('updatePost');
-          postService.updatePost($scope.post);
+        $scope.updatePost = function() {
+            console.log('updatePost');
+            postService.updatePost($scope.post);
         };
     }
 }());

@@ -27,6 +27,19 @@ app.get('/*', function(req, res) {
     res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
 
+function existsFile(file) {
+    try {
+        fs.statSync(file);
+        return true;
+    } catch (ex) {
+        if (ex.code === 'ENOENT') { //file not found
+            return false;
+        } else {
+            throw ex;
+        }
+    }
+}
+
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('Client connected:\t' + clientIp);
@@ -41,19 +54,29 @@ socketIo.on('connection', function(socket) {
         });
     });
 
-    socket.on('addPost', function(post, callback) {
+    socket.on('createPost', function(post, callback, errorCallback) {
         // TODO: replace spaces from name to dashes?
-        fs.writeFile(repoPath + '/' + post.name, post.text).then(function() {
-            callback(post);
-            socket.broadcast.emit('postAdded', post);
-        });
+        var file = repoPath + '/' + post.name;
+        if (!existsFile(file)) {
+            fs.writeFile(repoPath + '/' + post.name, post.text).then(function() {
+                callback(post);
+                socket.broadcast.emit('postCreated', post);
+            });
+        } else {
+            errorCallback('Post with the given name exists already.');
+        }
     });
 
-    socket.on('updatePost', function(post) {
+    socket.on('updatePost', function(post, errorCallback) {
         // TODO: delayed file writing to avoid high rate writing
-        fs.writeFile(repoPath + '/' + post.name, post.text).then(function() {
-            socket.broadcast.emit('postUpdated', post);
-        });
+        var file = repoPath + '/' + post.name;
+        if (existsFile(file)) {
+            fs.writeFile(file, post.text).then(function() {
+                socket.broadcast.emit('postUpdated', post);
+            });
+        } else {
+            errorCallback('Post does not exist.');
+        }
     });
 
     socket.on('renamePost', function(oldName, newName) {
