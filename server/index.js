@@ -12,7 +12,7 @@ var fs = require('fs-promise');
 var repoPath = path.resolve(__dirname + '/cn-data');
 var cachedPosts = {};
 
-var repo = require('./repoService.js');
+var repo = require('./repoService.js')();
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
 var port = process.env.PORT || config.port;
 console.log('using ' + config.publicFilePath + ' to serve public files');
@@ -117,6 +117,7 @@ socketIo.on('connection', function(socket) {
 });
 
 http.listen(port, function() {
+    // repo.commitFile('test').then(repo.push);
     console.log('listening on *:' + port);
 });
 
