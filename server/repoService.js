@@ -1,32 +1,13 @@
 'use strict';
 
-module.exports = function() {
+module.exports = function(auth, repoPath) {
+
     var module = {};
 
-
     var Git = require('nodegit');
-    // TODO: use advanced file system handling, e.g. fs-extra
-    var fs = require('fs');
-    var auth = require('./auth.json');
-    var repoPath = __dirname + '/cn-data';
-
-    function existsDirectory(directory) {
-        try {
-            fs.statSync(directory).isDirectory();
-            return true;
-        } catch (ex) {
-            if (ex.code === 'ENOENT') { //file not found
-                return false;
-            } else {
-                throw ex;
-            }
-        }
-    }
 
     module.clone = function() {
-        if (!existsDirectory(repoPath)) {
-            return Git.Clone('https://github.com/cn-data/cn-data.git', repoPath);
-        }
+        return Git.Clone('https://github.com/cn-data/cn-data.git', repoPath);
     };
 
     // function pull() {
@@ -71,7 +52,7 @@ module.exports = function() {
             });
     };
 
-    module.commitFile = function(file) {
+    module.commitFile = function(filePath) {
         var repo, oid;
 
         return Git.Repository.open(repoPath)
@@ -80,7 +61,12 @@ module.exports = function() {
                 return repo.openIndex();
             })
             .then(function(index) {
-                index.addByPath(file);
+                filePath = filePath.replace(repoPath, '');
+                if (filePath.charAt(0) === '/') {
+                    filePath = filePath.substr(1);
+                }
+
+                index.addByPath(filePath);
                 index.write();
                 return index.writeTree();
 

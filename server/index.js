@@ -9,10 +9,12 @@ var socketIo = require('socket.io')(http);
 
 
 var fs = require('fs-promise');
+var auth = require('./auth.json');
 var repoPath = path.resolve(__dirname + '/cn-data');
+var postsPath = repoPath + '/posts';
 var cachedPosts = {};
 
-var repo = require('./repoService.js')();
+var repo = require('./repoService.js')(auth, repoPath);
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
 var port = process.env.PORT || config.port;
 console.log('using ' + config.publicFilePath + ' to serve public files');
@@ -40,11 +42,24 @@ function existsFile(file) {
     }
 }
 
+function existsDirectory(directory) {
+    try {
+        fs.statSync(directory).isDirectory();
+        return true;
+    } catch (ex) {
+        if (ex.code === 'ENOENT') { //file not found
+            return false;
+        } else {
+            throw ex;
+        }
+    }
+}
+
 //write cache to file, every 2 minutes
 setInterval(function() {
     for (var key in cachedPosts) {
         if (cachedPosts.hasOwnProperty(key)) {
-            fs.writeFileSync(repoPath + '/' + key, cachedPosts[key].text);
+            fs.writeFileSync(postsPath + '/' + key, cachedPosts[key].text);
         }
     }
 }, 2 * 60 * 1000);
@@ -60,13 +75,13 @@ socketIo.on('connection', function(socket) {
 
     //client functions
     socket.on('getPostList', function(callback) {
-        fs.readdir(repoPath).then(function(files) {
+        fs.readdir(postsPath).then(function(files) {
             callback(files);
         });
     });
 
     socket.on('createOrUpdatePost', function(post, callback) {
-        var file = repoPath + '/' + post.name;
+        var file = postsPath + '/' + post.name;
         if (!existsFile(file)) {
             // TODO: replace spaces from name to dashes?
             fs.writeFile(file, post.text).then(function() {
@@ -81,17 +96,20 @@ socketIo.on('connection', function(socket) {
     });
 
     socket.on('renamePost', function(oldName, newName) {
-        fs.rename(repoPath + '/' + oldName, repoPath + '/' + newName).then(function() {
+        fs.rename(postsPath + '/' + oldName, postsPath + '/' + newName).then(function() {
             cachedPosts[newName] = cachedPosts[oldName];
             delete cachedPosts[oldName];
             socket.broadcast.emit('postRenamed', oldName, newName);
         });
     });
 
-    socket.on('commitPost', function(post) {
-        cachedPosts[post.name] = post;
-        // TODO: write to file and delete from cachedPosts
-        // TODO: commit
+    socket.on('commitPost', function(post, callback) {
+        var file = postsPath + '/' + post.name;
+        fs.writeFileSync(file, post.text);
+        delete cachedPosts[post.name];
+        repo.commitFile(file).then(repo.push).then(function () {
+            callback();
+        });
         // TODO: when push?
         socket.broadcast.emit('postCommitted', post);
     });
@@ -106,7 +124,7 @@ socketIo.on('connection', function(socket) {
         if (typeof cachedPosts[name] !== 'undefined') {
             callback(cachedPosts[name]);
         } else {
-            fs.readFile(repoPath + '/' + name, 'utf8').then(function(text) {
+            fs.readFile(postsPath + '/' + name, 'utf8').then(function(text) {
                 callback({
                     name: name,
                     text: text
@@ -116,8 +134,21 @@ socketIo.on('connection', function(socket) {
     });
 });
 
+
+//clone data repo if necessary and creating posts directory if no posts exist yet
+
+// TODO: is async, ensure, that no post can be created until cloning is done
+if (!existsDirectory(repoPath)) {
+    repo.clone().then(function() {
+        if (!existsDirectory(postsPath)) {
+            fs.mkdirSync(postsPath);
+        }
+    });
+} else if (!existsDirectory(postsPath)) {
+    fs.mkdirSync(postsPath);
+}
+
 http.listen(port, function() {
-    // repo.commitFile('test').then(repo.push);
     console.log('listening on *:' + port);
 });
 

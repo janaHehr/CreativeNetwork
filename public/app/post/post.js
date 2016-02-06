@@ -12,7 +12,9 @@
         });
     }
 
-    function PostController($scope, $routeParams, postService) {
+    function PostController($scope, $routeParams, $location, postService) {
+        $scope.committing = false;
+
         postService.postCreatedOrUpdated = function(post) {
             if (post.name === $scope.post.name) {
                 $scope.post = post;
@@ -25,6 +27,13 @@
 
         $scope.updatePost = function() {
             postService.createOrUpdatePost($scope.post);
+        };
+
+        $scope.commitPost = function() {
+            $scope.committing = true;
+            postService.commitPost($scope.post).then(function() {
+                $location.path('/');
+            });
         };
     }
 }());

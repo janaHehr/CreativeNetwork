@@ -30,6 +30,14 @@
             return deferred.promise;
         };
 
+        module.commitPost = function(post) {
+            var deferred = $q.defer();
+            socketService.emit('commitPost', post, function() {
+                deferred.resolve();
+            });
+            return deferred.promise;
+        };
+
 
         module.getPost = function(name) {
             var deferred = $q.defer();

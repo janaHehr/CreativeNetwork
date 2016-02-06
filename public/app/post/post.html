@@ -1,2 +1,3 @@
 <h1>{{post.name}}</h1>
 <textarea ng-change="updatePost()" ng-model="post.text"></textarea>
+<button ng-disabled="committing" type="button" ng-click="commitPost()">Commit</button>
